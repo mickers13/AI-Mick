@@ -1,0 +1,1 @@
+Modulo ( % ) geeft de rest bij een deling. Als er geen rest is geeft deze het antwoord van de deling.
