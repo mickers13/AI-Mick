@@ -7,15 +7,21 @@ int main() {
     cin>>breedte_pyramide;
     for(int c = 0; c<=breedte_pyramide; c++){
         cout<<endl;
+        for (int e = 0; e<=breedte_pyramide-c; e++){
+                cout<<" ";
+            }
         for(int d = 0; d<=c; d++){
             cout<<"X";
         }
     }
     for(int a = breedte_pyramide; a>0; a--){
         cout<<endl;
+        for (int e = 0; e<=breedte_pyramide-a; e++){
+                cout<<" ";
+            }
         for(int d = 0; d<=a; d++){
+            
             cout<<"X";
         }
     }
 }
-
