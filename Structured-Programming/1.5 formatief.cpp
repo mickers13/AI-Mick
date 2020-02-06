@@ -3,57 +3,53 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
-//Ik heb écht geprobeerd zelf een sorteer methode te maken, maar dat was te moeilijk. Daarom heb ik van een quicksort-pseudocode deze code gemaakt.
-//bron pseudocode : https://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/7-Sort/quick-sort1.html
+
 using namespace std;
 
-vector<int> sorteer(vector<int> cijfers){
-	int draaipunt = 0;
-	int lencijfers = cijfers.size();
-	cout<<lencijfers<<"is de waarde van len cijfers"<<endl;
-	vector<int> gesorteerd= {};
-	vector<int> links = {};
-	vector<int> rechts = {};
+void sorteer(vector<int> &list);
+void sorteer_hulp(vector<int> &list, size_t i, size_t j);
+size_t split(vector<int>&, size_t, size_t, size_t);
 
-	if(lencijfers<= 1){
-		return cijfers;
-	}else{
-		draaipunt = cijfers.back();
-		cout<<draaipunt<<"is het draaipunt van een nieuwe sorteer call"<<endl;
-		for(int i = 0; i<lencijfers;i++){
-			if (draaipunt > cijfers[i]){
-				
-				links.push_back(cijfers[i]);
-				cout<<cijfers[i]<<"is het cijfer wat we verplaatsen "<<draaipunt<<" is het cijfer dat we omheen willen draaien daarom links want het is kleiner dan of gelijk aan het draaipunt"<<endl;
-				
-			}else{
-				rechts.push_back(cijfers[i]);
-				cout<<cijfers[i]<<"is het cijfer wat we verplaatsen"<<draaipunt<<"is het cijfer dat we omheen willen draaien daarom rechts want het is groter dan het draaipunt"<<endl;
-				
-			}
-			
+int main() {
+	vector<int> cijfers = {5, 3, 8, 4, 6, 1, -2};
+	sorteer(cijfers);
+	for(int i = 0; i < cijfers.size(); i++)
+		cout << cijfers[i] << endl;
+	return 0;
+}
+
+void sorteer(vector<int>& list) {
+	sorteer_hulp(list, 0, list.size());
+}
+
+void sorteer_hulp(vector<int> &list, size_t i, size_t j){
+	// blok grootte 1 is al gesorteerd
+	if (j - i <= 1)
+		return;
+	// splits de lijst op in 3 delen, van links naar rechts:
+	// kleiner-gelijk aan pivot, pivot, groter dan pivot
+	size_t piv = split(list, i, j, i);
+	// sorteer links en rechts
+	sorteer_hulp(list, i, piv);
+	sorteer_hulp(list, piv + 1, j);
+}
+
+size_t split(vector<int> &list, size_t i, size_t j, size_t piv) {
+	// j begint als eerste waarde BUITEN de lijst. Haal j naar binnen.
+	// j wijst nu naar de laaste waarde in lijst
+	j -= 1;
+	// zolang i en j niet op dezelfde plek staan (de pivot!)
+	while(j - i > 0) {
+		if (list[i + 1] <= list[i]) {
+			// groei linker sectie
+			swap(list[i], list[i + 1]);
+			i++;
+		} else {
+			// groei rechter sectie
+			swap(list[j], list[i + 1]);
+			j--;
 		}
-		links.pushback()
-		sorteer(links);
-		sorteer(rechts);
-		gesorteerd.insert(gesorteerd.end(), links.begin(), links.end() );
-		gesorteerd.insert(gesorteerd.end(), rechts.begin(), rechts.end() );
-		cout<<gesorteerd.front()<<gesorteerd.back()<<"zijn eerste en laatste in de vector";
-		return gesorteerd;
-		
-	}
-
-
+	} 
+	// geef de positie van de pivot terug
+	return i;
 }
-
-int main(){
-	cout<<"START PROGRAMMA!%%%###############################################################################";
-	vector<int> cijfers= {1,3,6,8,98,2};
-	vector<int> sorted_cijfers =sorteer(cijfers);
-	int lensortedcijfers = sorted_cijfers.size();
-	for(int i = 0; i<lensortedcijfers;i++){
-	cout<<sorted_cijfers[i];
-	}
-
-}
-
