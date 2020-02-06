@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//Ik heb écht geprobeerd zelf een sorteer methode te maken, maar dat was te moeilijk. Daarom heb ik van een quicksort-pseudocode deze code gemaakt.
+//bron pseudocode : https://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/7-Sort/quick-sort1.html
+
 void sorteer(vector<int> &list);
 void sorteer_hulp(vector<int> &list, size_t i, size_t j);
 size_t split(vector<int>&, size_t, size_t, size_t);
