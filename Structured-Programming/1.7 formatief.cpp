@@ -20,13 +20,13 @@ int main() {
         cout<<"voer een cijfer in tot je het goed hebt:"<<endl;
         cin>>poging;
         if( poging == geheimcijfer ){
-            
+
             cout<<"Whooo het is gelukt!";
             break;
 
         } else {
 
-            cout<<"Helaas, probeer opnieuw.";
+            cout<<"Helaas, probeer opnieuw."<<endl;
 
         }
     }
