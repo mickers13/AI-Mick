@@ -22,20 +22,20 @@ char writeWoorden(char woorden[100]){
         cin.getline(woorden, 100);
         for( int letterslocatie = 0 ; letterslocatie < lengte ; letterslocatie++){
         if (woorden[letterslocatie]=='\t'|| woorden[letterslocatie] == '\n'){
-
-           continue;
+            cout<<"niet compressed";
+            continue;
 
         }else{
-            
+            cout<<"compressed";
             append(woordencomp,woorden[letterslocatie]);
 
-        }
-        
         }
         cout<<"de zin zonder tabs enzo: "<< woordencomp;
         ofile << woordencomp << endl;
         ofile.close();
 
+        }
+        
 }
  
 int main () {
