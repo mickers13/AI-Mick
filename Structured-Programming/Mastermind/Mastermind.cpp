@@ -68,55 +68,6 @@ void colorprint(string character,char color){
     }
 }
 
-void printinrow(vector<vector<char>>data){
-    cout<<"\033[F|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            
-            colorprint("O",'R');
-        }
-        cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }cout<<"|";
-}
-
-// void printrow(vector<vector<char>>data){
-//     void SetVector(int position, int value) {
-//    try
-//     {
-//        testVector.at(position) = value;
-//     }
-//    catch (const std::out_of_range& oor) {
-//       testVector.resize(position + 1);
-//       testVector[position] = value;
-//    }
-// }
-    
-    
-//     cout<<"\r|";
-
-//     for(int k = 0; k<g_amountOfColumns; k++){
-        
-//         if (data[k][k] != '' ){
-//             colorprint("X",data[i-1][k]);
-//         }else{
-//             colorprint("X",'R');
-//         }
-//     }
-//     cout<<"|";
-//     for(int i = 0; i<g_amountOfColumns; i++){
-//         cout<<" ";
-//     }cout<<"|";
-//     for(int i = 0; i<g_amountOfColumns; i++){
-//         cout<<" ";
-//     }cout<<"|\n";
-// }
-        
-
-
 void startoutrow(vector<vector<char>>data){
     // Print text.
         cout<<"|Code:";
@@ -149,18 +100,6 @@ void overwrite(string phrase){
     cout<<"\033[F\r"<<phrase<<"                                                                                     \n";
 }
 
-void writeNewData(vector<vector<char>>data,char newdata){
-for(int i = 0 ; i<data.size(); i++){
-    data[i].push_back(newdata); 
-    cout<<"\n test";
-    }
-}
-void dashcodes(char code){
-    if (code == '*'){
-            cout<<"\r These are all useable colours: \033[40;101m r, \033[40;102m g, \033[40;104m b, \033[40;106m c, \033[40;105m m and \033[40;103m y \033[39;49m";
-    }
-}
-
 char checkcode(char code){
     char codei;
     if (code == 'r'){
@@ -182,21 +121,83 @@ char checkcode(char code){
     return codei;
 }
 
+void dashcodes(char code){
+    if (code == '*'){
+            cout<<"\033[F\r These are all useable colours: \033[40;101m r  \033[40;102m g  \033[40;104m b  \033[40;106m c  \033[40;105m m and \033[40;103m y \033[39;49m                                             ";
+        Sleep(200);
+    }
+}
+
 char inputcode(){
     char code;
-    cout<<"Enter the colour (use * for a list of colours.): ";
+    cout<<"\033[F\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
     std::cin>>code;
     dashcodes(code);
     char vec_code;
     vec_code = checkcode(code);
     while (vec_code =='0' ){
-        
-        checkcode(code);
+        cout<<"\033[F\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
+        std::cin>>code;
+        dashcodes(code);
+        vec_code = checkcode(code);
     }
     
     return vec_code;
+}
+
+
+
+char inputcodeAI(char a, char b, char c, char d){
+    char code;
+    return code;
     
 }
+
+bool writeNewData(vector<vector<char>> &data){
+    data.push_back(vector <char> ());
+    int length = data.size()-1;
+    for(signed int i = 0 ; i<g_amountOfColumns; i++){
+        char newdata =  inputcode();
+        if (length<4){
+            data[length].push_back(newdata);
+        }
+        }
+        return true;
+}
+
+char getData(vector<vector<char>> data, int index, int index2){
+    int length = data.size();
+    return data[index][index2];
+}
+
+
+
+void printrow(vector<vector<char>> data){
+    // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
+        cout<<"\033[F\r|";
+
+        // code print
+        for(signed int i = 0; i<g_amountOfColumns; i++){
+            
+            colorprint("X",getData(data, data.size()-1, i));
+
+        }cout<<"|";
+        for(int i = 0; i<g_amountOfColumns; i++){
+            cout<<" ";
+
+
+        // hints print
+        }cout<<"|";
+        for(int i = 0; i<g_amountOfColumns; i++){
+            cout<<"=";
+        }
+        cout<<"|                                                                                                                  ";    
+}
+
+
+
+
+
 
 int main() {
     system("CLS");
@@ -204,8 +205,11 @@ int main() {
     vector<vector<char>> data;
     startSetup(4,6);
     startoutrow(data);
-    writeNewData(data,'R');
-    //printrow(data);
+    
+    writeNewData(data);
+
+    printrow(data);
+    
     
 
     
