@@ -195,21 +195,46 @@ void printrow(vector<vector<char>> data){
 }
 
 
+void printrowadd(vector<vector<char>> data){
+    // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
+        cout<<"\r|";
 
+        // code print
+        for(signed int i = 0; i<g_amountOfColumns; i++){
+            
+            colorprint("X",getData(data, data.size()-1, i));
+
+        }cout<<"|";
+        for(int i = 0; i<g_amountOfColumns; i++){
+            cout<<" ";
+
+
+        // hints print
+        }cout<<"|";
+        for(int i = 0; i<g_amountOfColumns; i++){
+            cout<<"=";
+        }
+        cout<<"|                                                                                                                 \n ";    
+}
 
 
 
 int main() {
+
+    //USER PLAYS MODUS:
+    startSetup(4,6);
     system("CLS");
     char test;
     vector<vector<char>> data;
-    startSetup(4,6);
+    
     startoutrow(data);
-    
     writeNewData(data);
-
     printrow(data);
-    
+    while(1){
+        writeNewData(data);
+        printrowadd(data);
+    }
+    //AI PLAYS MODUS
     
 
     
