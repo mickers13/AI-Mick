@@ -70,7 +70,7 @@ void colorprint(string character,char color){
 
 void startoutrow(vector<vector<char>>data){
     // Print text.
-        cout<<"|Code:";
+        cout<<"\n|Code:";
         
         for(int i = 0; i<g_amountOfColumns; i++){
             cout<<" ";
@@ -130,7 +130,7 @@ void dashcodes(char code){
 
 char inputcode(){
     char code;
-    cout<<"\033[F\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
+    cout<<"\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
     std::cin>>code;
     dashcodes(code);
     char vec_code;
@@ -145,7 +145,39 @@ char inputcode(){
     return vec_code;
 }
 
+int checkwhite(string code, string secret){
+    
+}
 
+vector<char> feedback(string code,string secret){
+    int white = 0;
+    char cwhite;
+    int black = 0;
+    char cblack;
+    for(signed int i = 0; i < code.length(); i++){
+        for(signed int j = 0; i < code.length(); j++){
+            if (code[i] ==secret[j]){
+                if (i == j){
+                    white++;
+                    break;
+                }else
+
+                    black++;
+                    break;
+            }
+        }
+    }
+    cout<<white<<"<wit"<<black<<"<zwart";
+    if (white != 0) {
+        cwhite = white+ '0';
+    }else{ cwhite = '0' ;}
+
+    if (black != 0){
+    cblack = black+ '0';
+    }else{ cblack = '0' ;}
+    vector<char> feedbk { cwhite, cblack };
+    return feedbk;
+}   
 
 char inputcodeAI(char a, char b, char c, char d){
     char code;
@@ -153,16 +185,19 @@ char inputcodeAI(char a, char b, char c, char d){
     
 }
 
-bool writeNewData(vector<vector<char>> &data){
+string writeNewData(vector<vector<char>> &data){
     data.push_back(vector <char> ());
+    string newestCode;
     int length = data.size()-1;
     for(signed int i = 0 ; i<g_amountOfColumns; i++){
         char newdata =  inputcode();
         if (length<4){
             data[length].push_back(newdata);
+            newestCode.push_back(newdata);
         }
         }
-        return true;
+        cout<<newestCode;
+    return newestCode;
 }
 
 char getData(vector<vector<char>> data, int index, int index2){
@@ -172,67 +207,52 @@ char getData(vector<vector<char>> data, int index, int index2){
 
 
 
-void printrow(vector<vector<char>> data){
+void printrow(vector<vector<char>> data,vector<char> newestCode){
     // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
-        cout<<"\033[F\r|";
+        startoutrow(data);
+        cout<<"\033[F";
 
         // code print
-        for(signed int i = 0; i<g_amountOfColumns; i++){
-            
-            colorprint("X",getData(data, data.size()-1, i));
+        for (int j = 0; j <= data.size()-1; j++){
+            cout<<"|";
+            for(signed int i = 0; i<g_amountOfColumns; i++){
+                
+                colorprint("X",getData(data, j, i));
 
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
+            }cout<<"|";
+            for(int i = 0; i<g_amountOfColumns; i++){
+                cout<<" ";
 
 
-        // hints print
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
+            // hints print
+            }cout<<"|";
+            cout<<"W"<<newestCode[0]<<"B"<<newestCode[1];
+            for(int i = 0; i<g_amountOfColumns-(newestCode.size()+2); i++){
+                cout<<"=";
+            }
+            cout<<"|                                                                                                                  \n\n";    
         }
-        cout<<"|                                                                                                                  ";    
 }
 
 
-void printrowadd(vector<vector<char>> data){
-    // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
-        cout<<"\r|";
-
-        // code print
-        for(signed int i = 0; i<g_amountOfColumns; i++){
-            
-            colorprint("X",getData(data, data.size()-1, i));
-
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-
-
-        // hints print
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
-        }
-        cout<<"|                                                                                                                 \n ";    
-}
 
 
 
 int main() {
-
+    // test secret
+    string secret = "RBBR";
     //USER PLAYS MODUS:
     startSetup(4,6);
     system("CLS");
     char test;
     vector<vector<char>> data;
-    
+    string newestCode;
     startoutrow(data);
-    writeNewData(data);
-    printrow(data);
+    newestCode = writeNewData(data);
+    printrow(data, feedback(newestCode, secret));
     while(1){
-        writeNewData(data);
-        printrowadd(data);
+        newestCode = writeNewData(data);
+        printrow(data, feedback(newestCode, secret));
     }
     //AI PLAYS MODUS
     
