@@ -8,8 +8,8 @@ using std::endl;
 using std::cout;
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
 https://en.wikipedia.org/wiki/ANSI_escape_code ik heb deze bron gedeeld met Ayoub.
-
-
+http://www.cplusplus.com/reference/string/string/find_first_of/
+https://stackoverflow.com/questions/2551775/appending-a-vector-to-a-vector
 
 */
 
@@ -145,37 +145,37 @@ char inputcode(){
     return vec_code;
 }
 
-int checkwhite(string code, string secret){
-    
-}
-
-vector<char> feedback(string code,string secret){
+int checkWhite(string code, string secret){
     int white = 0;
-    char cwhite;
-    int black = 0;
-    char cblack;
-    for(signed int i = 0; i < code.length(); i++){
-        for(signed int j = 0; i < code.length(); j++){
-            if (code[i] ==secret[j]){
-                if (i == j){
-                    white++;
-                    break;
-                }else
-
-                    black++;
-                    break;
-            }
+    for(int i = 0; i < code.size(); i++){
+        if(code[i] == secret[i]){
+            white++;
         }
     }
-    cout<<white<<"<wit"<<black<<"<zwart";
-    if (white != 0) {
-        cwhite = white+ '0';
-    }else{ cwhite = '0' ;}
+    return white;
+}
 
-    if (black != 0){
-    cblack = black+ '0';
-    }else{ cblack = '0' ;}
-    vector<char> feedbk { cwhite, cblack };
+int checkBlack(string code, string secret){
+    int black = 0;
+    for(int i = 0; i < code.size(); i++){
+        std::size_t found = secret.find_first_of(code[i]);
+        if (found!=std::string::npos){
+            black++;
+        }
+    return black;
+    }
+}
+
+vector<char> feedback(string code,string secret,vector<vector<char>> data,bool write){
+    int white = checkWhite(code, secret);
+    char cwhite = white +'0';
+    int black = checkBlack(code, secret) - white;
+    char cblack = black + '0';
+    vector<char> feedbk { cwhite, cblack  };
+    if(write == true){
+        int length = data.size()-1;
+        data[length].insert(data[length].end(), feedbk.begin(), feedbk.end());
+    }
     return feedbk;
 }   
 
@@ -249,10 +249,10 @@ int main() {
     string newestCode;
     startoutrow(data);
     newestCode = writeNewData(data);
-    printrow(data, feedback(newestCode, secret));
+    printrow(data, feedback(newestCode, secret,data, true));
     while(1){
         newestCode = writeNewData(data);
-        printrow(data, feedback(newestCode, secret));
+        printrow(data, feedback(newestCode, secret, data, true));
     }
     //AI PLAYS MODUS
     
