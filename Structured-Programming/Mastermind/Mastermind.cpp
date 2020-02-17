@@ -5,15 +5,20 @@
 #include <stdlib.h>   
 #include <time.h>     
 #include <stdio.h>
+#include <bits/stdc++.h> 
 using std::vector;
 using std::string;
 using std::endl;
 using std::cout;
+#include <algorithm> 
+
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
 https://en.wikipedia.org/wiki/ANSI_escape_code ik heb deze bron gedeeld met Ayoub.
 http://www.cplusplus.com      goede uitleg voor functies met klein voorbeeld.
 https://stackoverflow.com/questions/2551775/appending-a-vector-to-a-vector
-
+https://en.cppreference.com/w/cpp/algorithm/next_permutation`
+https://www.youtube.com/watch?v=7IQHYbmuoVU
+https://www.geeksforgeeks.org/print-all-the-permutation-of-length-l-using-the-elements-of-an-array-iterative/ ( code heb ik gebruikt als template en aangepast naar wat ik wil. )
 */
 
 
@@ -166,6 +171,7 @@ int checkBlack(string code, string secret){
         std::size_t found = tsecret.find_first_of(tcode[i]);
         if ((found!=std::string::npos)){
             black++;
+            //verwijder zodat hij deze specifieke niet nog een keer kan controleren.
             tsecret.erase (tsecret.begin()+found);
     }
     }
@@ -173,6 +179,101 @@ int checkBlack(string code, string secret){
     return black;
     
 }
+string convert_To_Len_th_base(int n, int arr[], int len, int L, int j ) { 
+    string woord;
+    // Sequence is of length L 
+    for (int i = 0; i < L; i++) { 
+        // Print the ith element 
+        // of sequence 
+        switch(arr[n % len]){
+                case 1 :
+                woord.push_back( 'R' ); 
+                //cout<<"R";
+                break;
+                case 2 :
+                woord.push_back( 'G' );
+                //cout << "G" ; 
+                break;
+                case 3 :
+                woord.push_back( 'B' );
+                //cout << "B" ; 
+                break;
+                case 4 :
+                woord.push_back( 'C' );
+                //cout << "C" ; 
+                break;
+                case 5 :
+                woord.push_back( 'M' );
+                //cout << "M" ; 
+                break;
+                case 6 :
+                woord.push_back( 'Y' );
+                //cout << "Y" ; 
+                break;
+        
+                }
+
+        n /= len; 
+    } 
+    
+
+    return woord;
+} 
+  
+// Print all the permuatations 
+vector<string> print(int arr[],int len,int L) { 
+    vector<string> lijst ;
+    string woordReturn = "";
+    // There can be (len)^l 
+    // permutations 
+    for (int i = 0; i < (int)pow(len, L); i++) { 
+        // Convert i to len th base 
+        woordReturn = convert_To_Len_th_base(i, arr, len, L, i); 
+        lijst.push_back(woordReturn);
+    } 
+    return lijst;
+} 
+  
+// Driver code 
+vector<string> generate(){ 
+    vector<string> lijst ;
+    int arr[] = { 1, 2, 3 ,4 , 5, 6}; 
+    int len = sizeof(arr) / sizeof(arr[0]); 
+    int L = 4; 
+  
+    // function call  
+    lijst = print(arr, len, L); 
+        
+    return lijst; 
+} 
+
+vector<string> generatePossibleGuesses(vector<vector<char>> data,vector<string> lastPossibleGuesses){
+
+    vector<string> possible = {};
+    string listColours = "rgbcmy";
+    if (lastPossibleGuesses.size() != 0){// als er een vorige gok is gedaan.
+        
+    }else { // als er dus nog geen vorige gok is gedaan. ( betekend dat data ook leeg is.)
+        possible = generate();
+        
+    }
+
+    // std::sort(possibleGuesses.begin(), possibleGuesses.end());
+    cout <<possible[(possible.size()/2)];
+    return possible;
+}
+
+string determineGuess(vector<vector<char>> data, vector<string> lastPossibleGuesses){
+    vector<string> possibleguesses = generatePossibleGuesses(data, lastPossibleGuesses);
+    //als ik het midden pak van een gesorteerde lijst van mogelijke, is het een soort binary search maar beter!() ( heuristiek )
+    
+    string test = possibleguesses[(possibleguesses.size()/2)];
+    return test;
+   
+}
+
+    
+
 
 vector<char> feedback(string code,string secret,vector<vector<char>> data,bool write){
     int white = 0;
@@ -189,26 +290,31 @@ vector<char> feedback(string code,string secret,vector<vector<char>> data,bool w
     return feedbk;
 }   
 
-char inputcodeAI(char a, char b, char c, char d){
-    char code;
-    return code;
-    
-}
 
-string writeNewData(vector<vector<char>> &data){
+
+string writeNewData(vector<vector<char>> data, bool ai = false){
     data.push_back(vector <char> ());
     string newestCode;
+    vector<string> lastPossibleGuesses = {};
     int length = data.size()-1;
-    for(signed int i = 0 ; i<g_amountOfColumns; i++){
+    if(ai == false){
+        for(signed int i = 0 ; i<g_amountOfColumns; i++){
         char newdata =  inputcode();
-        if (length<4){
-            data[length].push_back(newdata);
-            newestCode.push_back(newdata);
+            if (length<4){
+                data[length].push_back(newdata);
+                newestCode.push_back(newdata);
+            }
+            }}
+            else{
+                newestCode = determineGuess(data, lastPossibleGuesses);
+                
+               
+            }
+        return newestCode;
         }
-        }
-        cout<<newestCode;
-    return newestCode;
-}
+       
+    
+
 
 char getData(vector<vector<char>> data, int index, int index2){
     int length = data.size();
@@ -243,6 +349,9 @@ void printrow(vector<vector<char>> data,vector<char> newestCode){
             cout<<"|                                                                                                                  \n\n";    
         }
 }
+
+
+
 
 string generateSecret(){
     string secret = "";
@@ -282,11 +391,14 @@ int main() {
     vector<vector<char>> data;
     string newestCode;
     startoutrow(data);
-    newestCode = writeNewData(data);
-    printrow(data, feedback(newestCode, secret,data, true));
+    // un comment voor player
+    // newestCode = writeNewData(data,false);
+    // printrow(data, feedback(newestCode, secret,data, true));
     
     //AI PLAYS MODUS
-    
+    newestCode = writeNewData(data,true);
+    cout<<"en door";
+    printrow(data, feedback(newestCode, secret,data, true));
 
     
 }

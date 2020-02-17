@@ -1,77 +1,72 @@
 
-        // Since the elements are sorted, all occurrences of an element
-        // must be together
-
-
-
-// C++ program to print all combination 
-// of size r in an array of size n 
-#include<bits/stdc++.h> 
+// C++ implementation 
+#include <bits/stdc++.h> 
+#include <vector>
+#include <string>
 using namespace std; 
-
-void combinationUtil(int arr[], int data[], 
-					int start, int end, 
-					int index, int r); 
-
-// The main function that prints 
-// all combinations of size r 
-// in arr[] of size n. This function 
-// mainly uses combinationUtil() 
-void printCombination(int arr[], int n, int r) 
+using std::vector;
+vector<string> ja = {};
+// Convert the number to Lth 
+// base and print the sequence 
+void convert_To_Len_th_base(int n, int arr[], int len, int L, int j) 
 { 
-	// A temporary array to store 
-	// all combination one by one 
-	int data[r]; 
+        ja.push_back(j);
+    // Sequence is of length L 
+    for (int i = 0; i < L; i++) { 
+        // Print the ith element 
+        // of sequence 
+        switch(arr[n % len]){
+                case 1 :
+                ja[j].append("R") ; 
+                break;
+                case 2 :
+                cout << "G" ; 
+                break;
+                case 3 :
+                cout << "B" ; 
+                break;
+                case 4 :
+                cout << "C" ; 
+                break;
+                case 5 :
+                cout << "M" ; 
+                break;
+                case 6 :
+                cout << "Y" ; 
+                break;
+        
+                }
 
-	// Print all combination using 
-	// temprary array 'data[]' 
-	combinationUtil(arr, data, 0, n-1, 0, r); 
+        n /= len; 
+    } 
+    
+    cout << endl; 
 } 
-
-/* arr[] ---> Input Array 
-data[] ---> Temporary array to 
-store current combination 
-start & end ---> Staring and 
-Ending indexes in arr[] 
-index ---> Current index in data[] 
-r ---> Size of a combination to be printed */
-void combinationUtil(int arr[], int data[], 
-					int start, int end, 
-					int index, int r) 
+  
+// Print all the permuataions 
+void print(int arr[], 
+           int len, 
+           int L) 
 { 
-	// Current combination is ready 
-	// to be printed, print it 
-        int i = 0;
-	if (index == r) 
-	{ while(arr[i] == arr[i+1]){
-             
-		for (int j = 0; j < r; j++) 
-			cout << data[j] << " "; 
-		cout << endl; 
-		return; 
-        }
-	} 
-
-	// replace index with all possible 
-	// elements. The condition "end-i+1 >= r-index" 
-	// makes sure that including one element 
-	// at index will make a combination with 
-	// remaining elements at remaining positions 
-	for (int i = start; i <= end && end - i + 1 >= r - index; i++) 
-	{        
-		data[index] = arr[i]; 
-		combinationUtil(arr, data, i+1, end, index+1, r );
-                
-	} 
+    // There can be (len)^l 
+    // permutations 
+    for (int i = 0; i < (int)pow(len, L); i++) { 
+        // Convert i to len th base 
+        convert_To_Len_th_base(i, arr, len, L, i); 
+    } 
 } 
-
+  
 // Driver code 
 int main() 
 { 
-	int arr[] = {1, 2, 3, 4, 5, 6}; 
-
-	int r = 4; 
-	int n = sizeof(arr)/sizeof(arr[0]); 
-        
-	printCombination(arr, n, r); 
-}
+    int arr[] = { 1, 2, 3 ,4 , 5, 6}; 
+    int len = sizeof(arr) / sizeof(arr[0]); 
+    int L = 4; 
+  
+    // function call 
+    print(arr, len, L); 
+        for (int i = 0; i < ja.size()-1;i++){
+                cout<<ja[i];
+        }
+    return 0; 
+} 
