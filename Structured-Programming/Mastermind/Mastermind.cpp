@@ -2,13 +2,16 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include <stdlib.h>   
+#include <time.h>     
+#include <stdio.h>
 using std::vector;
 using std::string;
 using std::endl;
 using std::cout;
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
 https://en.wikipedia.org/wiki/ANSI_escape_code ik heb deze bron gedeeld met Ayoub.
-http://www.cplusplus.com/reference/string/string/find_first_of/
+http://www.cplusplus.com      goede uitleg voor functies met klein voorbeeld.
 https://stackoverflow.com/questions/2551775/appending-a-vector-to-a-vector
 
 */
@@ -157,19 +160,26 @@ int checkWhite(string code, string secret){
 
 int checkBlack(string code, string secret){
     int black = 0;
-    for(int i = 0; i < code.size(); i++){
-        std::size_t found = secret.find_first_of(code[i]);
-        if (found!=std::string::npos){
+    string tcode = code;
+    string tsecret = secret;
+    for(int i = 0; i < tcode.size(); i++){
+        std::size_t found = tsecret.find_first_of(tcode[i]);
+        if ((found!=std::string::npos)){
             black++;
-        }
-    return black;
+            tsecret.erase (tsecret.begin()+found);
     }
+    }
+    cout<<black << "hoeveelheid zwart";
+    return black;
+    
 }
 
 vector<char> feedback(string code,string secret,vector<vector<char>> data,bool write){
-    int white = checkWhite(code, secret);
+    int white = 0;
+    int black = 0;
+    white = checkWhite(code, secret);
     char cwhite = white +'0';
-    int black = checkBlack(code, secret) - white;
+    black = checkBlack(code, secret)-white ;
     char cblack = black + '0';
     vector<char> feedbk { cwhite, cblack  };
     if(write == true){
@@ -212,7 +222,7 @@ void printrow(vector<vector<char>> data,vector<char> newestCode){
         startoutrow(data);
         cout<<"\033[F";
 
-        // code print
+        // code print         
         for (int j = 0; j <= data.size()-1; j++){
             cout<<"|";
             for(signed int i = 0; i<g_amountOfColumns; i++){
@@ -234,26 +244,47 @@ void printrow(vector<vector<char>> data,vector<char> newestCode){
         }
 }
 
+string generateSecret(){
+    string secret = "";
+    int secretnummer;
+    string listofcolours = "RGBCMY";
+    //maak random seed
+    srand (time(NULL));
+
+    // kies een random letter uit list of colours tot het even lang is aan de lengte die nodig is.
+    char secretletter ;
+    for(int i = 0 ; i < g_amountOfColumns; i++){
+        secretnummer = rand() % listofcolours.size()-1 + 1;
+        secretletter = listofcolours[secretnummer];
+        cout<< secretletter;
+        //voeg toe aan secret
+        secret.push_back(secretletter);
+    }
+    return secret;
+}
 
 
 
 
 int main() {
+
     // test secret
-    string secret = "RBBR";
+    
+    
+
+    //TODO: MENU MAKEN DIE DEZE SELECTEERD
     //USER PLAYS MODUS:
     startSetup(4,6);
     system("CLS");
+    string secret = generateSecret();
+    cout<<"het geheim niet door vertellen:"<< secret;
     char test;
     vector<vector<char>> data;
     string newestCode;
     startoutrow(data);
     newestCode = writeNewData(data);
     printrow(data, feedback(newestCode, secret,data, true));
-    while(1){
-        newestCode = writeNewData(data);
-        printrow(data, feedback(newestCode, secret, data, true));
-    }
+    
     //AI PLAYS MODUS
     
 
