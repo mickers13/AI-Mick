@@ -33,8 +33,11 @@ void startSetup(int columns = 4, int colours = 6){
     //defineer variablen, en doe paar dingen die aan het begin mogen gebeuren.
     ::g_amountOfColumns = columns;
     ::g_amountOfColours = colours;
-
 }
+
+
+// COMMENT: deze functie heeft niets te maken met de core game.
+// Dus zet hem in een aparte file voor functies die dingen mooier maken.
 
 void colorprint(string character,char color){
     // een switch, die een kleur pakt en print en weer reset. Erg fijn, python heeft dit niet... BOEEE! Letters staan voor RGB - CMY van rood groen blauw... etc!
@@ -75,6 +78,9 @@ void colorprint(string character,char color){
             break;
     }
 }
+
+// COMMENT: ook deze functie print iets.
+// Zet hem in een aparte file.
 
 void startoutrow(vector<vector<char>>data){
     // Print text.
@@ -179,6 +185,9 @@ int checkBlack(string code, string secret){
     return black;
     
 }
+
+// COMMENT: geen idiote functie namen alstublieft XD.
+
 string convert_To_Len_th_base(int n, int arr[], int len, int L, int j ) { 
     string woord;
     // Sequence is of length L 
@@ -233,11 +242,18 @@ vector<string> print(int arr[],int len,int L) {
     } 
     return lijst;
 } 
-  
+
+// COMMENT: wat is driver code?
+
 // Driver code 
+
+// COMMENT: wat generaten we hier?
 vector<string> generate(){ 
     vector<string> lijst ;
     int arr[] = { 1, 2, 3 ,4 , 5, 6}; 
+    
+    // COMMENT: Waarom de lengte berekenen van een array met fixed length?
+    
     int len = sizeof(arr) / sizeof(arr[0]); 
     int L = 4; 
   
