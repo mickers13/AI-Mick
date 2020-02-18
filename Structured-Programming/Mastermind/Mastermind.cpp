@@ -180,7 +180,7 @@ int checkBlack(string code, string secret){
     
 }
 string convert_To_Len_th_base(int n, int arr[], int len, int L, int j ) { 
-    string woord;
+    string woord="";
     // Sequence is of length L 
     for (int i = 0; i < L; i++) { 
         // Print the ith element 
@@ -220,28 +220,26 @@ string convert_To_Len_th_base(int n, int arr[], int len, int L, int j ) {
     return woord;
 } 
   
-// Print all the permuatations 
+
 vector<string> print(int arr[],int len,int L) { 
-    vector<string> lijst ;
+    vector<string> lijst={} ;
     string woordReturn = "";
-    // There can be (len)^l 
-    // permutations 
+
     for (int i = 0; i < (int)pow(len, L); i++) { 
         // Convert i to len th base 
         woordReturn = convert_To_Len_th_base(i, arr, len, L, i); 
         lijst.push_back(woordReturn);
+        cout<< woordReturn;
     } 
     return lijst;
 } 
   
-// Driver code 
 vector<string> generate(){ 
-    vector<string> lijst ;
+    vector<string> lijst ={};
     int arr[] = { 1, 2, 3 ,4 , 5, 6}; 
     int len = sizeof(arr) / sizeof(arr[0]); 
     int L = 4; 
   
-    // function call  
     lijst = print(arr, len, L); 
         
     return lijst; 
@@ -265,7 +263,9 @@ vector<string> generatePossibleGuesses(vector<vector<char>> data,vector<string> 
 
 string determineGuess(vector<vector<char>> data, vector<string> lastPossibleGuesses){
     vector<string> possibleguesses = generatePossibleGuesses(data, lastPossibleGuesses);
-    //als ik het midden pak van een gesorteerde lijst van mogelijke, is het een soort binary search maar beter!() ( heuristiek )
+    //als ik het midden pak van een gesorteerde lijst van mogelijke, is het een soort binary search maar beter! 
+    //Dit aangezien letters en cijfers het zelfde zijn in c++ hierdoor hoop ik een snelle uitkomst te vinden 
+    //( heuristiek )
     
     string test = possibleguesses[(possibleguesses.size()/2)];
     return test;
@@ -276,6 +276,7 @@ string determineGuess(vector<vector<char>> data, vector<string> lastPossibleGues
 
 
 vector<char> feedback(string code,string secret,vector<vector<char>> data,bool write){
+    // geeft feedback op de code vergeleken met de 2e code, wat de secret KAN zijn. Het kan ook een andere zijn. Als write true is, slaat hij het op in data.
     int white = 0;
     int black = 0;
     white = checkWhite(code, secret);
@@ -284,34 +285,42 @@ vector<char> feedback(string code,string secret,vector<vector<char>> data,bool w
     char cblack = black + '0';
     vector<char> feedbk { cwhite, cblack  };
     if(write == true){
-        int length = data.size()-1;
-        data[length].insert(data[length].end(), feedbk.begin(), feedbk.end());
+        if (data.size() == 0){  
+            data.push_back(feedbk);
+        }else{
+            int length = data.size()-1;
+            data[length].insert(data[length].end(), feedbk.begin(), feedbk.end());
+        }
+        
     }
     return feedbk;
 }   
 
 
 
-string writeNewData(vector<vector<char>> data, bool ai = false){
+string writeNewData(vector<vector<char>> &data, bool ai = false){
     data.push_back(vector <char> ());
     string newestCode;
     vector<string> lastPossibleGuesses = {};
     int length = data.size()-1;
     if(ai == false){
         for(signed int i = 0 ; i<g_amountOfColumns; i++){
-        char newdata =  inputcode();
-            if (length<4){
-                data[length].push_back(newdata);
-                newestCode.push_back(newdata);
-            }
-            }}
-            else{
-                newestCode = determineGuess(data, lastPossibleGuesses);
-                
-               
-            }
-        return newestCode;
+            char newdata =  inputcode();
+                if (length<4){
+                    data[length].push_back(newdata);
+                    newestCode.push_back(newdata);
+                    }
+                }
+    }else{
+        newestCode = determineGuess(data, lastPossibleGuesses);
+        for(signed int i = 0 ; i<g_amountOfColumns; i++){
+            char newdata = newestCode[i];
+            data[length].push_back(newdata);
         }
+    } 
+    
+    return newestCode;
+    }
        
     
 
@@ -323,7 +332,7 @@ char getData(vector<vector<char>> data, int index, int index2){
 
 
 
-void printrow(vector<vector<char>> data,vector<char> newestCode){
+void printrow(vector<vector<char>> &data,vector<char> newestCode){
     // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
         startoutrow(data);
         cout<<"\033[F";
@@ -392,14 +401,12 @@ int main() {
     string newestCode;
     startoutrow(data);
     // un comment voor player
+
     // newestCode = writeNewData(data,false);
     // printrow(data, feedback(newestCode, secret,data, true));
     
     //AI PLAYS MODUS
     newestCode = writeNewData(data,true);
     cout<<"en door";
-    printrow(data, feedback(newestCode, secret,data, true));
-
-    
+    printrow(data, feedback(newestCode, secret,data, true));        
 }
-
