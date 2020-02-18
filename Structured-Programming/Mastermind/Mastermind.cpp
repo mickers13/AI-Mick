@@ -12,6 +12,7 @@ using std::endl;
 using std::cout;
 #include <algorithm> 
 
+
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
 https://en.wikipedia.org/wiki/ANSI_escape_code ik heb deze bron gedeeld met Ayoub.
 http://www.cplusplus.com      goede uitleg voor functies met klein voorbeeld.
@@ -19,20 +20,22 @@ https://stackoverflow.com/questions/2551775/appending-a-vector-to-a-vector
 https://en.cppreference.com/w/cpp/algorithm/next_permutation`
 https://www.youtube.com/watch?v=7IQHYbmuoVU
 https://www.geeksforgeeks.org/print-all-the-permutation-of-length-l-using-the-elements-of-an-array-iterative/ ( code heb ik gebruikt als template en aangepast naar wat ik wil. )
+https://www.systutorials.com/convert-string-to-int-and-reverse/
 */
 
 
 /*Globale settings voor het hele programma, waar veel naar gekeken gaat worden. 
 g_* ter verduidelijking dat het een global is. 
 Dit is voor de syntax niet nodig maar wel fijn, aangezien je anders het verschil waarschijnlijk niet ziet.*/
-int g_amountOfColumns;
-int g_amountOfColours;
+int g_amountOfColumns ;
+// global aangezien ik niet continue wil rotzooien met verplaatsen van deze vector aangezien hij vrij groot word. Een pointer zou kunnen maar daar heb ik nog
+// niet mee gewerkt, ik ga hier ná de deadline kijken hoe dit werkt.  Verder gebruik ik deze vector relatief veel in andere functies.
+vector<string> g_possibleGuesses = {};
 
 
-void startSetup(int columns = 4, int colours = 6){
-    //defineer variablen, en doe paar dingen die aan het begin mogen gebeuren.
+void startSetup(int columns = 4){
+    //defineer variablen, en doe paar dingen die aan het begin mogen gebeuren. 
     ::g_amountOfColumns = columns;
-    ::g_amountOfColours = colours;
 
 }
 
@@ -175,11 +178,35 @@ int checkBlack(string code, string secret){
             tsecret.erase (tsecret.begin()+found);
     }
     }
-    cout<<black << "hoeveelheid zwart";
+
     return black;
     
 }
-string convert_To_Len_th_base(int n, int arr[], int len, int L, int j ) { 
+int convertStringToInt(string code){
+    int nummer = std::stoi(code);
+    return nummer;
+}
+// string zoekBitWaarde(int gemiddelde){
+//     while(1){
+//         for(int i = 0 ; i < g_possibleGuesses.size(); i++){
+//             if(gemiddelde ==convertStringToInt(g_possibleGuesses[i])){
+//                 return g_possibleGuesses[i];
+//             }
+//         }
+//     gemiddelde+1;
+//     }
+// }
+
+int berekenGemGuess(){
+    int totaal = 0;
+            for(int i = 0; i < g_possibleGuesses.size()-1 ; i++){
+                totaal += convertStringToInt(g_possibleGuesses[i]);
+            }
+            int gemiddelde = totaal / g_possibleGuesses.size();
+            return gemiddelde;
+}
+
+string covertToLen(int n, int arr[], int len, int L, int j ) { 
     string woord="";
     // Sequence is of length L 
     for (int i = 0; i < L; i++) { 
@@ -226,15 +253,18 @@ vector<string> print(int arr[],int len,int L) {
     string woordReturn = "";
 
     for (int i = 0; i < (int)pow(len, L); i++) { 
-        // Convert i to len th base 
-        woordReturn = convert_To_Len_th_base(i, arr, len, L, i); 
+        woordReturn = covertToLen(i, arr, len, L, i); 
+
         lijst.push_back(woordReturn);
-        cout<< woordReturn;
+
     } 
     return lijst;
 } 
+
+
+
   
-vector<string> generate(){ 
+vector<string> generateAllCodes(){ 
     vector<string> lijst ={};
     int arr[] = { 1, 2, 3 ,4 , 5, 6}; 
     int len = sizeof(arr) / sizeof(arr[0]); 
@@ -244,38 +274,44 @@ vector<string> generate(){
         
     return lijst; 
 } 
+vector<string> generatePossibleGuesses(vector<vector<char>> data, bool full){
+    if (full != true){
+        vector<string> possible = {};
+        string listColours = "rgbcmy";
 
-vector<string> generatePossibleGuesses(vector<vector<char>> data,vector<string> lastPossibleGuesses){
+        possible = generateAllCodes();
+            
+        std::sort(possible.begin(), possible.end());
+        return possible;
+    
+    }else{
+        string compareCode;
+        vector<char> possible;
+        vector<string> possibleFull;
+        vector<char> feedbk;
+        for(int i = 0; i < g_amountOfColumns; i++){
+            compareCode.push_back(data[data.end][i]);
+        }
+        
+        feedbk.push_back(data[data.end][4]);
+        feedbk.push_back(data[data.end][5]);
+        for(int i = 0; i < g_possibleGuesses.size(); i++){
+            if (feedbk == feedback(g_possibleGuesses[i], compareCode, data, false)){
+                for (int j = 0; j < g_possibleGuesses[i].size(); j++){
+                    possible.push_back(g_possibleGuesses[i][j]); // hier ben ik gebleven, iets met string en char. moet ik nou char of string returnen? kijk hier maar naar mick van morgen.
+                }
+            };
 
-    vector<string> possible = {};
-    string listColours = "rgbcmy";
-    if (lastPossibleGuesses.size() != 0){// als er een vorige gok is gedaan.
-        
-    }else { // als er dus nog geen vorige gok is gedaan. ( betekend dat data ook leeg is.)
-        possible = generate();
-        
+        }
+        std::sort(possible.begin(), possible.end());
+        return possible;
     }
 
-    // std::sort(possibleGuesses.begin(), possibleGuesses.end());
-    cout <<possible[(possible.size()/2)];
-    return possible;
+
 }
 
-string determineGuess(vector<vector<char>> data, vector<string> lastPossibleGuesses){
-    vector<string> possibleguesses = generatePossibleGuesses(data, lastPossibleGuesses);
-    //als ik het midden pak van een gesorteerde lijst van mogelijke, is het een soort binary search maar beter! 
-    //Dit aangezien letters en cijfers het zelfde zijn in c++ hierdoor hoop ik een snelle uitkomst te vinden 
-    //( heuristiek )
-    
-    string test = possibleguesses[(possibleguesses.size()/2)];
-    return test;
-   
-}
 
-    
-
-
-vector<char> feedback(string code,string secret,vector<vector<char>> data,bool write){
+vector<char> feedback(string code,string secret,vector<vector<char>> &data,bool write){
     // geeft feedback op de code vergeleken met de 2e code, wat de secret KAN zijn. Het kan ook een andere zijn. Als write true is, slaat hij het op in data.
     int white = 0;
     int black = 0;
@@ -296,12 +332,45 @@ vector<char> feedback(string code,string secret,vector<vector<char>> data,bool w
     return feedbk;
 }   
 
+string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
+    //als ik het midden pak van een gesorteerde lijst van mogelijke, is het een soort binary search maar beter! 
+    //Dit aangezien letters en cijfers het zelfde zijn hierdoor hoop ik een snelle uitkomst te vinden door de feedback van de middelste hogere 
+    //en middelste lagere te vergelijken.
+    //( heuristiek )
+    if (g_possibleGuesses.empty()){
+        cout<<"okkk";
+        // als er nog geen vorige guess is gedaan, genereer een lijst.
+        g_possibleGuesses = generatePossibleGuesses(data,false);
+        //geef het midden van de lijst.
+        string temp = g_possibleGuesses[(g_possibleGuesses.size()/2)];
+        return temp;
+    // er is een vorige guess gedaan. Dus nu kunnen we daar op in met de feedback.
+    }else{
+        // als de laatste gok 4 wit heeft, is de code geraden. Dus stop.
+        if( data[data.size()-1][4] ) {
+            cout<< "We hebben de code! whooo we zijn klaar.";
+            
+        } else {
+            // bereken nu welke nog mogenlijk zijn, door naar de feedback te kijken.
+            // Als de feedback overeenkomt met de laatste poging ( vergeleken dus mét de laatste poging)
+            g_possibleGuesses = generatePossibleGuesses(data,true);
+           
+        } 
+         string code = g_possibleGuesses[(g_possibleGuesses.size()/2)];
+        return code;          
+    }
+   
+}
+
+    
 
 
-string writeNewData(vector<vector<char>> &data, bool ai = false){
+
+
+
+string writeNewData(vector<vector<char>> &data, vector<char>newestfeedback,  bool ai = false){
     data.push_back(vector <char> ());
     string newestCode;
-    vector<string> lastPossibleGuesses = {};
     int length = data.size()-1;
     if(ai == false){
         for(signed int i = 0 ; i<g_amountOfColumns; i++){
@@ -312,7 +381,7 @@ string writeNewData(vector<vector<char>> &data, bool ai = false){
                     }
                 }
     }else{
-        newestCode = determineGuess(data, lastPossibleGuesses);
+        newestCode = determineGuess(data,newestfeedback);
         for(signed int i = 0 ; i<g_amountOfColumns; i++){
             char newdata = newestCode[i];
             data[length].push_back(newdata);
@@ -329,7 +398,6 @@ char getData(vector<vector<char>> data, int index, int index2){
     int length = data.size();
     return data[index][index2];
 }
-
 
 
 void printrow(vector<vector<char>> &data,vector<char> newestCode){
@@ -390,9 +458,11 @@ int main() {
     
     
 
-    //TODO: MENU MAKEN DIE DEZE SELECTEERD
-    //USER PLAYS MODUS:
-    startSetup(4,6);
+    //TODO: MENU MAKEN DIE MODUS SELECTEERD
+    
+    //algemeen, nodig in zowel user als AI.
+   
+    startSetup(4);
     system("CLS");
     string secret = generateSecret();
     cout<<"het geheim niet door vertellen:"<< secret;
@@ -400,13 +470,21 @@ int main() {
     vector<vector<char>> data;
     string newestCode;
     startoutrow(data);
-    // un comment voor player
-
+    // uncomment voor player
+    //USER PLAYS MODUS:
     // newestCode = writeNewData(data,false);
     // printrow(data, feedback(newestCode, secret,data, true));
     
-    //AI PLAYS MODUS
-    newestCode = writeNewData(data,true);
-    cout<<"en door";
-    printrow(data, feedback(newestCode, secret,data, true));        
+    // comment voor player modus.
+    //AI PLAYS MODUS: 
+    vector<char> newestFeedback;
+    newestCode = writeNewData(data,newestFeedback,true);
+    newestFeedback = feedback(newestCode, secret,data, true);
+    printrow(data, newestFeedback);        
+    newestFeedback = feedback(newestCode, secret,data, true);
+    printrow(data, newestFeedback);          
+   
+    
+
+    return 0;
 }
