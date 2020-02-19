@@ -12,15 +12,11 @@ using std::endl;
 using std::cout;
 #include <algorithm> 
 
-/*TO DO (niet op volgorde):   
-    MENU MAKEN VOOR MODUS
-
-    PRINT CODE EN ALGORITME CODE UIT DEZE "MAIN" FILE HALEN EN IN RESPECTIEVELIJKE FILE DOEN VOOR OVERZICHTELIJKHEID. (hier heb ik een poging tot gedaan, dit kan je zien als een aparte branche in mijn github genaamd headerfiles.)
+/*Niet gelukt:   
+    Mergen van poging tot headerfile en de master branche.  ( tijd nood. )   Code in de poging tot headerfile is veel netter en beter verdeeld. Ook is er de crash bug uit gewerkt.
+    Maar is er daar 1 andere bug voor terug gekomen. Kijk dus deels naar de code hier en bij de branche hier onder:
     https://github.com/mickers13/AI-Mick/tree/Poging-tot-headerfile
 
-    BUG FIX VOOR ONEINDIG LOOPEN OF CRASH ALS HIJ DE CODE SOMS NIET VIND. ( hier ga ik mee aan de gang tot de deadline, maar weet niet of ik dit optijd gefixed krijg. Sorry...)
- 
-    
  */
 
 
@@ -463,11 +459,11 @@ string generateSecret(){
 
 int main() {
 
-    // test secret
+ 
     
-    
+    // Deze branche heeft een simpel keuze menu
 
-    //TODO: MENU MAKEN DIE MODUS SELECTEERD
+    
     
     //algemeen, nodig in zowel user als AI.
    
