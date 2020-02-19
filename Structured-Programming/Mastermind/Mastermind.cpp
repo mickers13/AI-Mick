@@ -13,14 +13,11 @@ using std::cout;
 #include <algorithm> 
 
 /*TO DO (niet op volgorde):   
-    MENU MAKEN VOOR MODUS
-
-    PRINT CODE EN ALGORITME CODE UIT DEZE "MAIN" FILE HALEN EN IN RESPECTIEVELIJKE FILE DOEN VOOR OVERZICHTELIJKHEID. (hier heb ik een poging tot gedaan, dit kan je zien als een aparte branche in mijn github genaamd headerfiles.)
-    https://github.com/mickers13/AI-Mick/tree/Poging-tot-headerfile
+    PRINT CODE EN ALGORITME CODE UIT DEZE "MAIN" FILE HALEN EN IN RESPECTIEVELIJKE FILE DOEN VOOR OVERZICHTELIJKHEID. (hier heb ik een poging tot gedaan, alleen is dit niet gelukt. Je kan het zien als een aparte branche in mijn github genaamd headerfiles.)
+    https://github.com/mickers13/AI-Mick/tree/Poging-tot-headerfile  <--- link naar poging.
 
     BUG FIX VOOR ONEINDIG LOOPEN OF CRASH ALS HIJ DE CODE SOMS NIET VIND. ( hier ga ik mee aan de gang tot de deadline, maar weet niet of ik dit optijd gefixed krijg. Sorry...)
- 
-    
+    Als ik dit optijd gefixed krijg voeg ik nog 1 extra algoritme toe.
  */
 
 
@@ -276,7 +273,6 @@ vector<string> generateAllCodes(){
     return lijst; 
 } 
 
-
 vector<char> feedback(string code,string secret,vector<vector<char>> &data,bool write){
     // geeft feedback op de code vergeleken met de 2e code, wat de secret KAN zijn. Het kan ook een andere zijn. Als write true is, slaat hij het op in data.
     int white = 0;
@@ -313,10 +309,10 @@ vector<string> generatePossibleGuesses(vector<vector<char>> &data, bool full){
         vector<string> possible = {};
         vector<char> feedbk;
         for(int i = 0; i < g_amountOfColumns-1; i++){
-            compareCode.push_back(data[data.size()-2][i]);
+            compareCode.push_back(data[data.size()-1][i]);
         }
-        feedbk.push_back(data[data.size()-2][4]);
-        feedbk.push_back(data[data.size()-2][5]);
+        feedbk.push_back(data[data.size()-1][4]);
+        feedbk.push_back(data[data.size()-1][5]);
         for(int i = 0; i < g_possibleGuesses.size(); i++){
             if (feedbk == feedback(g_possibleGuesses[i], compareCode, data, false)){
                 possible.push_back(g_possibleGuesses[i]);
@@ -347,17 +343,23 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
     }else{
         // bereken nu welke nog mogenlijk zijn, door naar de feedback te kijken.
         // Als de feedback overeenkomt met de laatste poging ( vergeleken dus mét de laatste poging)
-        
-        if (g_possibleGuesses.size() >= 3){
+        int length = g_possibleGuesses.size();
+        if (length < 20 && length > 0){
+            for(int i = 0 ; i < length ; i++){
+                cout<<g_possibleGuesses[i]<<"\n";
+            }
+        }
+        if (length >= 3){
+            cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden--- groter dan 3? ifstatement doet soms gek."<<data.size();
             g_possibleGuesses = generatePossibleGuesses(data,true);
-            cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";
             string code = g_possibleGuesses[(g_possibleGuesses.size()/2)];
             g_possibleGuesses.erase(g_possibleGuesses.begin()+ g_possibleGuesses.size()/2);
             return code;
         }
-        else if (g_possibleGuesses.size() > 0){
+        else if (length > 1){
+            // het midden van een vector pakken met minder dan 3 opties is nogal onnodig, dus pakken we het eerste element.
+            cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";  // hoe kan het hier 0 mogenlijheden printen, terwijl het alleen zou kunnen als de size hoger is dan 1...
             g_possibleGuesses = generatePossibleGuesses(data,true);
-            cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";
             string code = g_possibleGuesses[0];
             g_possibleGuesses.erase(g_possibleGuesses.begin()+1);
             return code;
@@ -378,7 +380,6 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
 
 
 string writeNewData(vector<vector<char>> &data, vector<char>newestfeedback,  bool ai = false){
-    data.push_back(vector <char> ());
     string newestCode;
     int length = data.size()-1;
     if(ai == false){
@@ -476,26 +477,27 @@ int main() {
     string secret = generateSecret();
     cout<<"het geheim niet door vertellen:"<< secret;
     char test;
-    vector<vector<char>> data;
+    vector<vector<char>> data = {vector<char>{}};
     
     startoutrow(data);
-    int menu;
-    cout<<"Enter 0 for player and 1 for ai modus. : ";
-    std::cin>>menu;
-    if (menu == 0){
-        //USER PLAYS MODUS:
-        while(1){
-            string newestCode;
-            vector<char> newestFeedback;
-            newestCode = writeNewData(data,newestFeedback,false);
-            newestFeedback = feedback(newestCode, secret,data, true);
-            printrow(data, feedback(newestCode, secret,data, true));
-            if(newestFeedback[0] == '4'){
-                cout<<"whoo gewonnen!";
-                break;
-            }
-        }
-    }else{    
+    // commented out zodat debug werkt. uncomment om menu en player modus werkend te hebben. ( cin werkt niet met debug modus van visual studio code.)
+    // int menu;
+    // cout<<"Enter 0 for player and 1 for ai modus. : ";
+    // std::cin>>menu;
+    // if (menu == 0){
+    //     //USER PLAYS MODUS:
+    //     while(1){
+    //         string newestCode;
+    //         vector<char> newestFeedback;
+    //         newestCode = writeNewData(data,newestFeedback,false);
+    //         newestFeedback = feedback(newestCode, secret,data, true);
+    //         printrow(data, feedback(newestCode, secret,data, true));
+    //         if(newestFeedback[0] == '4'){
+    //             cout<<"whoo gewonnen!";
+    //             break;
+    //         }
+    //     }
+    // }else{    
         while(1){
             //AI PLAYS MODUS: 
             string newestCode;
@@ -507,8 +509,8 @@ int main() {
                 cout<<"whoo gewonnen!";
                 break;
             }
+    //     }
         }
-    }
     
 
     return 0;
