@@ -8,7 +8,7 @@
     extern vector<string> g_possibleGuesses;
 
     
-void startSetup(int columns = 4);
+void startSetup(int columns);
 
 void colorprint(string character,char color);
   
