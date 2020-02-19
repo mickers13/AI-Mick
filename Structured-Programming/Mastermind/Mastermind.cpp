@@ -12,6 +12,15 @@ using std::endl;
 using std::cout;
 #include <algorithm> 
 
+/*TO DO (niet op volgorde):   
+    MENU MAKEN VOOR MODUS
+    
+    PRINT CODE EN ALGORITME CODE UIT DEZE "MAIN" FILE HALEN EN IN RESPECTIEVELIJKE FILE DOEN VOOR OVERZICHTELIJKHEID. (hier heb ik een poging tot gedaan, dit kan je zien als een aparte branche in mijn github genaamd headerfiles.)
+    https://github.com/mickers13/AI-Mick/tree/Poging-tot-headerfile
+
+    BUG FIX VOOR ONEINDIG LOOPEN OF CRASH ALS HIJ DE CODE SOMS NIET VIND. ( hier ga ik mee aan de gang tot de deadline, maar weet niet of ik dit optijd gefixed krijg. Sorry...)
+ */
+
 
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
 https://en.wikipedia.org/wiki/ANSI_escape_code ik heb deze bron gedeeld met Ayoub.
@@ -28,7 +37,7 @@ https://www.systutorials.com/convert-string-to-int-and-reverse/
 g_* ter verduidelijking dat het een global is. 
 Dit is voor de syntax niet nodig maar wel fijn, aangezien je anders het verschil waarschijnlijk niet ziet.*/
 int g_amountOfColumns ;
-// global aangezien ik niet continue wil rotzooien met verplaatsen van deze vector aangezien hij vrij groot word. Een pointer zou kunnen maar daar heb ik nog
+// global aangezien ik niet continue wil rotzooien met verplaatsen van deze vector aangezien hij vrij groot word. Ik hoorde van een vriend dat een pointer zou kunnen  helpen maar daar heb ik nog
 // niet mee gewerkt, ik ga hier ná de deadline kijken hoe dit werkt.  Verder gebruik ik deze vector relatief veel in andere functies.
 vector<string> g_possibleGuesses = {};
 
@@ -80,7 +89,7 @@ void colorprint(string character,char color){
 }
 
 void startoutrow(vector<vector<char>>data){
-    // Print text.
+    // Print text lees bare text
         cout<<"\n|Code:";
         
         for(int i = 0; i<g_amountOfColumns; i++){
