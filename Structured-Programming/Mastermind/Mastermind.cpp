@@ -14,11 +14,13 @@ using std::cout;
 
 /*TO DO (niet op volgorde):   
     MENU MAKEN VOOR MODUS
-    
+
     PRINT CODE EN ALGORITME CODE UIT DEZE "MAIN" FILE HALEN EN IN RESPECTIEVELIJKE FILE DOEN VOOR OVERZICHTELIJKHEID. (hier heb ik een poging tot gedaan, dit kan je zien als een aparte branche in mijn github genaamd headerfiles.)
     https://github.com/mickers13/AI-Mick/tree/Poging-tot-headerfile
 
     BUG FIX VOOR ONEINDIG LOOPEN OF CRASH ALS HIJ DE CODE SOMS NIET VIND. ( hier ga ik mee aan de gang tot de deadline, maar weet niet of ik dit optijd gefixed krijg. Sorry...)
+ 
+    
  */
 
 
@@ -195,16 +197,6 @@ int convertStringToInt(string code){
     int nummer = std::stoi(code);
     return nummer;
 }
-// string zoekBitWaarde(int gemiddelde){
-//     while(1){
-//         for(int i = 0 ; i < g_possibleGuesses.size(); i++){
-//             if(gemiddelde ==convertStringToInt(g_possibleGuesses[i])){
-//                 return g_possibleGuesses[i];
-//             }
-//         }
-//     gemiddelde+1;
-//     }
-// }
 
 int berekenGemGuess(){
     int totaal = 0;
@@ -341,33 +333,29 @@ vector<string> generatePossibleGuesses(vector<vector<char>> &data, bool full){
 
 string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
     //ik pak het midden van gesorteerde mogenlijke  hierdoor hoop ik beter te kunnen uitsluiten welke daadwerkelijk mogenlijk is.
-    //( heuristiek )
+    //( heuristiek ) ( ik wilde eerst iets anders proberen, namenlijk de bitwaarden vergelijken van alles en dan de waarde het meest dichtbij het gemiddelde bitwaarde pakken, maar dat kwam 
+    // letterlijk op het zelfde neer...)
     if (g_possibleGuesses.size()== 0){
-        
-        // als er nog geen vorige guess is gedaan, genereer een lijst.
         g_possibleGuesses = generatePossibleGuesses(data,false);
-        //geef het midden van de lijst.
         std::sort(g_possibleGuesses.begin(),g_possibleGuesses.end());
         string temp = g_possibleGuesses[(g_possibleGuesses.size()/2)];
+
         // verwijder de keuze, want als deze fout is is het geen mogenlijke optie, en we kunnen deze altijd nog terug vinden in data.
         g_possibleGuesses.erase(g_possibleGuesses.begin()+ g_possibleGuesses.size()/2);
         cout<<g_possibleGuesses.size()<<" = grote van mogenlijke opties";
         return temp;
-    // er is een vorige guess gedaan. Dus nu kunnen we daar op in met de feedback.
     }else{
-        
-       
         // bereken nu welke nog mogenlijk zijn, door naar de feedback te kijken.
         // Als de feedback overeenkomt met de laatste poging ( vergeleken dus mét de laatste poging)
         
-        if (g_possibleGuesses.size() <! 3){
+        if (g_possibleGuesses.size() >= 3){
             g_possibleGuesses = generatePossibleGuesses(data,true);
             cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";
             string code = g_possibleGuesses[(g_possibleGuesses.size()/2)];
             g_possibleGuesses.erase(g_possibleGuesses.begin()+ g_possibleGuesses.size()/2);
             return code;
         }
-        else if (g_possibleGuesses.size() <= 2 && g_possibleGuesses.size() > 0 ){
+        else if (g_possibleGuesses.size() > 0){
             g_possibleGuesses = generatePossibleGuesses(data,true);
             cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";
             string code = g_possibleGuesses[0];
@@ -375,15 +363,10 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
             return code;
         }else{ 
             g_possibleGuesses = generatePossibleGuesses(data,true);
-            cout<<"oh je, wss gaat er iets fout";
             string code = g_possibleGuesses[0];
-            g_possibleGuesses.erase(g_possibleGuesses.begin()+1);
             return code;
             // er blijft nog maar 1 over
         }
-        
-        string code = "RRRR";
-        return code;          
     }
    
 }
@@ -494,23 +477,36 @@ int main() {
     cout<<"het geheim niet door vertellen:"<< secret;
     char test;
     vector<vector<char>> data;
-    string newestCode;
-    startoutrow(data);
-    // uncomment voor player
-    //USER PLAYS MODUS:
-    // newestCode = writeNewData(data,false);
-    // printrow(data, feedback(newestCode, secret,data, true));
     
-    // comment voor player modus.
-    //AI PLAYS MODUS: 
-    vector<char> newestFeedback;
-    while(1){
-        newestCode = writeNewData(data,newestFeedback,true);
-        newestFeedback = feedback(newestCode, secret,data, true);
-        printrow(data, newestFeedback);
-        if(newestFeedback[0] == '4'){
-            cout<<"whoo gewonnen!";
-            break;
+    startoutrow(data);
+    int menu;
+    cout<<"Enter 0 for player and 1 for ai modus. : ";
+    std::cin>>menu;
+    if (menu == 0){
+        //USER PLAYS MODUS:
+        while(1){
+            string newestCode;
+            vector<char> newestFeedback;
+            newestCode = writeNewData(data,newestFeedback,false);
+            newestFeedback = feedback(newestCode, secret,data, true);
+            printrow(data, feedback(newestCode, secret,data, true));
+            if(newestFeedback[0] == '4'){
+                cout<<"whoo gewonnen!";
+                break;
+            }
+        }
+    }else{    
+        while(1){
+            //AI PLAYS MODUS: 
+            string newestCode;
+            vector<char> newestFeedback;
+            newestCode = writeNewData(data,newestFeedback,true);
+            newestFeedback = feedback(newestCode, secret,data, true);
+            printrow(data, newestFeedback);
+            if(newestFeedback[0] == '4'){
+                cout<<"whoo gewonnen!";
+                break;
+            }
         }
     }
     
