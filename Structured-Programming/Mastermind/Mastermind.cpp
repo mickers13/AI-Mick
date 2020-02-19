@@ -1,7 +1,6 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <windows.h>
 #include <stdlib.h>   
 #include <time.h>     
 #include <stdio.h>
@@ -62,16 +61,6 @@ int convertStringToInt(string code){
     int nummer = std::stoi(code);
     return nummer;
 }
-// string zoekBitWaarde(int gemiddelde){
-//     while(1){
-//         for(int i = 0 ; i < g_possibleGuesses.size(); i++){
-//             if(gemiddelde ==convertStringToInt(g_possibleGuesses[i])){
-//                 return g_possibleGuesses[i];
-//             }
-//         }
-//     gemiddelde+1;
-//     }
-// }
 
 int berekenGemGuess(){
     int totaal = 0;
@@ -183,10 +172,10 @@ vector<string> generatePossibleGuesses(vector<vector<char>> &data, bool full){
         vector<string> possible = {};
         vector<char> feedbk;
         for(int i = 0; i < g_amountOfColumns-1; i++){
-            compareCode.push_back(data[data.size()-2][i]);
+            compareCode.push_back(data[data.size()-1][i]);
         }
-        feedbk.push_back(data[data.size()-2][4]);
-        feedbk.push_back(data[data.size()-2][5]);
+        feedbk.push_back(data[data.size()-1][4]);
+        feedbk.push_back(data[data.size()-1][5]);
         for(int i = 0; i < g_possibleGuesses.size(); i++){
             if (feedbk == feedback(g_possibleGuesses[i], compareCode, data, false)){
                 possible.push_back(g_possibleGuesses[i]);
@@ -249,7 +238,7 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
 }
 
 string writeNewData(vector<vector<char>> &data, vector<char>newestfeedback,  bool ai = false){
-    data.push_back(vector <char> ());
+
     string newestCode;
     int length = data.size()-1;
     if(ai == false){
@@ -311,7 +300,7 @@ int main() {
     string secret = generateSecret();
     cout<<"het geheim niet door vertellen:"<< secret;
     char test;
-    vector<vector<char>> data;
+    vector<vector<char>> data = {vector<char>{}};
     string newestCode;
     startoutrow(data);
     // uncomment voor player
