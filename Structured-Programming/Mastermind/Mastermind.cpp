@@ -158,7 +158,7 @@ vector<char> feedback(string code,string secret,vector<vector<char>> &data,bool 
     vector<char> feedbk { cwhite, cblack  };
     if(write == true){
         if (data.size() == 0){  
-            data.push_back(feedbk);
+            data.push_back(feedbk); 
         }else{
             int length = data.size()-1;
             data[length].insert(data[length].end(), feedbk.begin(), feedbk.end());

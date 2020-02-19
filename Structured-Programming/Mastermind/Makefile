@@ -1,9 +1,9 @@
-run: main.o
-	g++ main.o -o run
+run: Mastermind.o
+	g++ Mastermind.o -o run
 	./run
 
-main.o: main.cpp
-	g++ -c main.cpp
+main.o: Mastermind.cpp
+	g++ -c Mastermind.cpp
 clean:
 	rm *.o run.exe
 													
