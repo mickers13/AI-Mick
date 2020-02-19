@@ -6,11 +6,14 @@
 #include <time.h>     
 #include <stdio.h>
 #include <bits/stdc++.h> 
+#include <algorithm> 
 using std::vector;
 using std::string;
 using std::endl;
 using std::cout;
-#include <algorithm> 
+// header file zelf gemaakt voor minder grote stapels code:
+#include "Functions.h"
+
 
 
 /*Ik doe een paar gekke dingen, die ik zelf erg leuk vond om uit te zoeken om een leuke Commandline game versie van mastermind te maken ( kleurtjes in CMD enzo. ). paar voorbeelden voor de bronnen:
@@ -23,137 +26,9 @@ https://www.geeksforgeeks.org/print-all-the-permutation-of-length-l-using-the-el
 https://www.systutorials.com/convert-string-to-int-and-reverse/
 */
 
-
-/*Globale settings voor het hele programma, waar veel naar gekeken gaat worden. 
-g_* ter verduidelijking dat het een global is. 
-Dit is voor de syntax niet nodig maar wel fijn, aangezien je anders het verschil waarschijnlijk niet ziet.*/
-int g_amountOfColumns ;
-// global aangezien ik niet continue wil rotzooien met verplaatsen van deze vector aangezien hij vrij groot word. Een pointer zou kunnen maar daar heb ik nog
-// niet mee gewerkt, ik ga hier ná de deadline kijken hoe dit werkt.  Verder gebruik ik deze vector relatief veel in andere functies.
-vector<string> g_possibleGuesses = {};
-
-
-void startSetup(int columns = 4){
-    //defineer variablen, en doe paar dingen die aan het begin mogen gebeuren. 
-    ::g_amountOfColumns = columns;
-
-}
-
-void colorprint(string character,char color){
-    // een switch, die een kleur pakt en print en weer reset. Erg fijn, python heeft dit niet... BOEEE! Letters staan voor RGB - CMY van rood groen blauw... etc!
-    switch(color){
-        case'R': 
-            cout<<"\033[40;101m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-
-        case'G':
-            cout<<"\033[40;102m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-
-        case'B':
-            cout<<"\033[40;104m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-
-        case'C':        
-            cout<<"\033[40;106m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-
-        case'M':
-            cout<<"\033[40;105m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-        case'Y':
-            cout<<"\033[40;103m";
-            cout<<character;
-            cout<<"\033[39;49m";
-            break;
-    }
-}
-
-void startoutrow(vector<vector<char>>data){
-    // Print text.
-        cout<<"\n|Code:";
-        
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }
-
-        cout<<"Clues|\n";
-
-    // Print a line.
-        cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
-        }
-        cout<<"|                                                                             \n";
-
-    
-
-}
-
 void overwrite(string phrase){
     //overschrijf de vorige lijn met een nieuwe zin. handig voor text ( + veel spaties om volledig te overschrijven)
     cout<<"\033[F\r"<<phrase<<"                                                                                     \n";
-}
-
-char checkcode(char code){
-    char codei;
-    if (code == 'r'){
-        codei = 'R';
-    }else if(code == 'g'){
-        codei = 'G';
-    }else if(code == 'b'){
-        codei = 'B' ;
-    }else if(code == 'c'){
-        codei = 'C' ;
-    }else if(code == 'm'){
-        codei = 'M';
-    }else if(code == 'y'){
-        codei = 'Y';
-    }else {
-        //non correct code syntax
-        codei = '0';
-    }
-    return codei;
-}
-
-void dashcodes(char code){
-    if (code == '*'){
-            cout<<"\033[F\r These are all useable colours: \033[40;101m r  \033[40;102m g  \033[40;104m b  \033[40;106m c  \033[40;105m m and \033[40;103m y \033[39;49m                                             ";
-        Sleep(200);
-    }
-}
-
-char inputcode(){
-    char code;
-    cout<<"\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
-    std::cin>>code;
-    dashcodes(code);
-    char vec_code;
-    vec_code = checkcode(code);
-    while (vec_code =='0' ){
-        cout<<"\033[F\rEnter the colour (use * for a list of colours.) (only lowercase.) :     ";
-        std::cin>>code;
-        dashcodes(code);
-        vec_code = checkcode(code);
-    }
-    
-    return vec_code;
 }
 
 int checkWhite(string code, string secret){
@@ -182,6 +57,7 @@ int checkBlack(string code, string secret){
     return black;
     
 }
+
 int convertStringToInt(string code){
     int nummer = std::stoi(code);
     return nummer;
@@ -247,7 +123,6 @@ string covertToLen(int n, int arr[], int len, int L, int j ) {
     return woord;
 } 
   
-
 vector<string> print(int arr[],int len,int L) { 
     vector<string> lijst={} ;
     string woordReturn = "";
@@ -260,9 +135,6 @@ vector<string> print(int arr[],int len,int L) {
     } 
     return lijst;
 } 
-
-
-
   
 vector<string> generateAllCodes(){ 
     vector<string> lijst ={};
@@ -274,7 +146,6 @@ vector<string> generateAllCodes(){
         
     return lijst; 
 } 
-
 
 vector<char> feedback(string code,string secret,vector<vector<char>> &data,bool write){
     // geeft feedback op de code vergeleken met de 2e code, wat de secret KAN zijn. Het kan ook een andere zijn. Als write true is, slaat hij het op in data.
@@ -334,8 +205,6 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
     //ik pak het midden van gesorteerde mogenlijke  hierdoor hoop ik beter te kunnen uitsluiten welke daadwerkelijk mogenlijk is.
     //( heuristiek )
     if (g_possibleGuesses.size()== 0){
-        
-        // als er nog geen vorige guess is gedaan, genereer een lijst.
         g_possibleGuesses = generatePossibleGuesses(data,false);
         //geef het midden van de lijst.
         std::sort(g_possibleGuesses.begin(),g_possibleGuesses.end());
@@ -351,7 +220,7 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
         // bereken nu welke nog mogenlijk zijn, door naar de feedback te kijken.
         // Als de feedback overeenkomt met de laatste poging ( vergeleken dus mét de laatste poging)
         
-        if (g_possibleGuesses.size() <! 3){
+        if (g_possibleGuesses.size() > 3){
             g_possibleGuesses = generatePossibleGuesses(data,true);
             cout<<"zoveel : "<< g_possibleGuesses.size()<<"  | aantal mogelijkheden";
             string code = g_possibleGuesses[(g_possibleGuesses.size()/2)];
@@ -379,12 +248,6 @@ string determineGuess(vector<vector<char>> data, vector<char>newestfeedback){
    
 }
 
-    
-
-
-
-
-
 string writeNewData(vector<vector<char>> &data, vector<char>newestfeedback,  bool ai = false){
     data.push_back(vector <char> ());
     string newestCode;
@@ -406,43 +269,10 @@ string writeNewData(vector<vector<char>> &data, vector<char>newestfeedback,  boo
     } 
     
     return newestCode;
-    }
-       
-    
-
-
-char getData(vector<vector<char>> data, int index, int index2){
-    int length = data.size();
-    return data[index][index2];
 }
 
 
-void printrow(vector<vector<char>> &data,vector<char> newestCode){
-    // Print a frame + items van de vector met de laatste index ( wat de nieuwste is.)
-        startoutrow(data);
-        cout<<"\033[F";
 
-        // code print         
-        for (int j = 0; j <= data.size()-1; j++){
-            cout<<"|";
-            for(signed int i = 0; i<g_amountOfColumns; i++){
-                
-                colorprint("X",getData(data, j, i));
-
-            }cout<<"|";
-            for(int i = 0; i<g_amountOfColumns; i++){
-                cout<<" ";
-
-
-            // hints print
-            }cout<<"|";
-            cout<<"W"<<newestCode[0]<<"B"<<newestCode[1];
-            for(int i = 0; i<g_amountOfColumns-(newestCode.size()+2); i++){
-                cout<<"=";
-            }
-            cout<<"|                                                                                                                  \n\n";    
-        }
-}
 
 
 
@@ -465,9 +295,6 @@ string generateSecret(){
     }
     return secret;
 }
-
-
-
 
 int main() {
 

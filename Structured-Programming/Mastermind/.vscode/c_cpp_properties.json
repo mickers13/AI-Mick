@@ -3,7 +3,9 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}",
+                "C:\\Users\\Orang\\Desktop\\AI-periode 1 jaar 1\\AI-Mick\\Structured-Programming\\Mastermind\\**"
             ],
             "defines": [
                 "_DEBUG",
