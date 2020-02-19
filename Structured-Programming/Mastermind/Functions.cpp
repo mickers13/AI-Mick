@@ -1,7 +1,6 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <windows.h>
 #include <stdlib.h>   
 #include <time.h>     
 #include <stdio.h>
@@ -12,6 +11,8 @@ using std::endl;
 using std::cout;
 #include <algorithm> 
 #include "Functions.h"
+
+// Functies voor het printen en mooi krijgen van de file, kleine overlap met algorithms
 
 /*Globale settings voor het hele programma, waar veel naar gekeken gaat worden. 
 g_* ter verduidelijking dat het een global is. 
@@ -66,30 +67,27 @@ void colorprint(string character,char color){
 }
 
 void startoutrow(vector<vector<char>>data){
-    // Print text.
-        cout<<"\n|Code:";
-        
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }
-
-        cout<<"Clues|\n";
-
-    // Print a line.
-        cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<" ";
-        }cout<<"|";
-        for(int i = 0; i<g_amountOfColumns; i++){
-            cout<<"=";
-        }
-        cout<<"|                                                                             \n";
-
+// Print text.
+    cout<<"\n|Code:";
     
+    for(int i = 0; i<g_amountOfColumns; i++){
+        cout<<" ";
+    }
 
+    cout<<"Clues|\n";
+
+// Print a line.
+    cout<<"|";
+    for(int i = 0; i<g_amountOfColumns; i++){
+        cout<<"=";
+    }cout<<"|";
+    for(int i = 0; i<g_amountOfColumns; i++){
+        cout<<" ";
+    }cout<<"|";
+    for(int i = 0; i<g_amountOfColumns; i++){
+        cout<<"=";
+    }
+    cout<<"|                                                                             \n";
 }
 
 char checkcode(char code){
@@ -116,7 +114,6 @@ char checkcode(char code){
 void dashcodes(char code){
     if (code == '*'){
             cout<<"\033[F\r These are all useable colours: \033[40;101m r  \033[40;102m g  \033[40;104m b  \033[40;106m c  \033[40;105m m and \033[40;103m y \033[39;49m                                             ";
-        Sleep(200);
     }
 }
 
@@ -153,14 +150,17 @@ void printrow(vector<vector<char>> &data,vector<char> newestCode){
             for(signed int i = 0; i<g_amountOfColumns; i++){
                 
                 colorprint("X",getData(data, j, i));
-
-            }cout<<"|";
+                cout<<"|"<<i<<j<<"|";
+            }
+            cout<<"|";
+            
             for(int i = 0; i<g_amountOfColumns; i++){
                 cout<<" ";
 
 
             // hints print
-            }cout<<"|";
+            }
+            cout<<"|";
             cout<<"W"<<newestCode[0]<<"B"<<newestCode[1];
             for(int i = 0; i<g_amountOfColumns-(newestCode.size()+2); i++){
                 cout<<"=";
