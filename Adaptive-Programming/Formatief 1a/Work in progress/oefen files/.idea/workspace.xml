@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:pr" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:pr" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0bfc75b1-3664-46e3-ada5-a187699d13ee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/testRefreshJavaMick/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/testRefreshJavaMick/pan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/testRefreshJavaMick/pannenkoekbakken.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1aa0qy1TjYwAt3BrsztBfQJsPKn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.testRefreshJavaMick.Main" />
+      <module name="oefen files" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0bfc75b1-3664-46e3-ada5-a187699d13ee" name="Default Changelist" comment="" />
+      <created>1586958591996</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586958591996</updated>
+      <workItem from="1586958596467" duration="3036000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="991" y="499" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586961064221">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="991" y="499" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961064221" />
+    <state x="1305" y="545" key="#com.intellij.ide.util.MemberChooser" timestamp="1586960213483">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1305" y="545" key="#com.intellij.ide.util.MemberChooser/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586960213483" />
+    <state x="1266" y="634" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1586961063153">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1266" y="634" key="#com.intellij.ide.util.TreeClassChooserDialog/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961063153" />
+    <state width="3029" height="496" key="GridCell.Tab.0.bottom" timestamp="1586961635008">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="3029" height="496" key="GridCell.Tab.0.bottom/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961635008" />
+    <state width="3029" height="496" key="GridCell.Tab.0.center" timestamp="1586961635008">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="3029" height="496" key="GridCell.Tab.0.center/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961635008" />
+    <state width="3029" height="496" key="GridCell.Tab.0.left" timestamp="1586961635008">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="3029" height="496" key="GridCell.Tab.0.left/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961635008" />
+    <state width="3029" height="496" key="GridCell.Tab.0.right" timestamp="1586961635008">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="3029" height="496" key="GridCell.Tab.0.right/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961635008" />
+    <state x="1045" y="489" key="SettingsEditor" timestamp="1586958896220">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1045" y="489" key="SettingsEditor/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586958896220" />
+    <state x="977" y="465" key="new project wizard" timestamp="1586961632894">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="977" y="465" key="new project wizard/-1920.0.1920.1030/0.0.3072.1688@0.0.3072.1688" timestamp="1586961632894" />
+  </component>
+</project>
