@@ -1,8 +1,9 @@
 package Formatief1.opdracht;
 
-public class AutoHuur {
-    private int aantalDagen;
+public class AutoHuur{
     private String huurder;
+    private int aantalDagen;
+
     private String gehuurdeAuto;
 
 
@@ -14,6 +15,10 @@ public class AutoHuur {
     }
     public void setAantalDagen(int aantalDagen) {
         this.aantalDagen = aantalDagen;
+    }
+
+    public int getAantalDagen() {
+        return aantalDagen;
     }
 
     @Override
