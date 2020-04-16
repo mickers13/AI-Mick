@@ -4,12 +4,11 @@ public class Klant {
     private String naam;
     private double kortingsPercentage;
 
+    public Klant(String naam){
+        this.naam = naam; //In java returnt dit null of niks
+    }
     public double getKortingsPercentage() {
         return kortingsPercentage;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
     }
 
     public void setKortingsPercentage(double kortingsPercentage) {

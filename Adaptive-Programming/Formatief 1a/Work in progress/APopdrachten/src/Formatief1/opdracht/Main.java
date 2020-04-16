@@ -7,8 +7,7 @@ public class Main {
         AutoHuur ah1 = new AutoHuur();
         System.out.println("Eerste autohuur: " + ah1.toString());
 
-        Klant k = new Klant();
-        k.setNaam("Mijnheef de Vries");
+        Klant k = new Klant("Mijnheer de Vries");
         k.setKortingsPercentage(10.0);
         ah1.setHuurder(k.getNaam());
         System.out.println("Eerste autohuur:" + ah1.toString());
