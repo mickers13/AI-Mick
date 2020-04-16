@@ -3,7 +3,7 @@ package Formatief1.opdracht;
 public class Main {
 
     public static void main(String[] args) {
-	// todo: afmaken opdracht 1 , sorry ik heb iets teveel tijd gestopt in de test en het kijken van youtube video's om mijn java van 3 jaar geleden onder het stof vandaan te trekken
+	// todo: mooi maken print statements!
         AutoHuur ah1 = new AutoHuur();
         System.out.println("Eerste autohuur: " + ah1.toString());
 
@@ -32,11 +32,6 @@ public class Main {
         ah2.setAantalDagen(1);
         totaalPrijs = ((a2.getPrijsPerDag()*ah2.getAantalDagen())/100)*(100-k.getKortingsPercentage());
         System.out.println("Eerste autohuur:" + ah2.toString()+"Voor een totaal prijs van:"+totaalPrijs);
-
-
-// Print "Gehuurd: " + ah1.getGehuurdeAuto()
-// Print "Gehuurd: " + ah2.getGehuurdeAuto()
-
 
     }
 }
