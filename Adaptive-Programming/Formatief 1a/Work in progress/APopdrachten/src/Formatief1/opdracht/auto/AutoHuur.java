@@ -1,4 +1,4 @@
-package Formatief1.opdracht;
+package Formatief1.opdracht.auto;
 
 public class AutoHuur{
     private String huurder;
