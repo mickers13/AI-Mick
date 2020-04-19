@@ -5,7 +5,7 @@ public class Klant {
     private double kortingsPercentage;
 
     public Klant(String naam){
-        this.naam = naam; //In java returnt dit null of niks
+        this.naam = naam;
     }
     public double getKortingsPercentage() {
         return kortingsPercentage;
