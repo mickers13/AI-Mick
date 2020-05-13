@@ -8,12 +8,14 @@ public class Node extends NodeAbstract {
     private float endPercent;
     private HashMap<Integer,Node> connecties = new HashMap<>();
     private Random rand = new Random();
-    private int id;
+
     String newCode;
 
     public Node(int id, boolean isendnode) {
         super(id, isendnode);
+
     }
+
 
     @Override
     public void useNode() {
@@ -21,7 +23,7 @@ public class Node extends NodeAbstract {
         for(Integer i : connecties.keySet()){
             if(r > connecties.get(i).beginPercent && r < connecties.get(i).endPercent){
                 //dice kant gevonden. Ik had ook naar deze dice kunnen gaan zoals ik ook in formatief 2a heb gedaan, maar voor de opdracht is dit goed genoeg.
-                System.out.println(id);
+                System.out.println("We rolled a dice, and got: "+ connecties.get(i).getId());
 
             }
         }

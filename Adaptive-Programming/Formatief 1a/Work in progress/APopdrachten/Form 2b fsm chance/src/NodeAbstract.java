@@ -5,7 +5,7 @@ abstract class NodeAbstract {
     static int hoeveelheidVerplaatst;
     static int counter;
     private boolean endNode;
-    private int id;
+    int id;
     static ArrayList<String> nodesList = new ArrayList<String>();
     public NodeAbstract(int id, boolean isendnode) {
         counter++;
