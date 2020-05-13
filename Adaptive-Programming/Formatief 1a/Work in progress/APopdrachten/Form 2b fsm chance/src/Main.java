@@ -3,10 +3,8 @@ import java.util.ArrayList;
 public class Main {
     public static void createDice(int numberofdice){
         float kantPerPercent = 100 / numberofdice;
-        System.out.println(kantPerPercent);
         Node start = new Node(0, false);
         ArrayList<Node> nodes = new ArrayList<>();
-
         // maak alle nodes
         for (int i = 0; i < numberofdice; i++) {
             nodes.add(new Node(i, true));
@@ -19,12 +17,9 @@ public class Main {
     }
     public static void main(String args[]){
         //code werkt alleen onder de 100 kanten aan dice, dit kan aangepast, maar dan kan je niet makkelijk meer werken met percentages.
-        int dicesides = 5;
-
+        int dicesides = 10;
+        System.out.println("starting up...");
         createDice(dicesides);
-        dicesides = 3;
-        createDice(dicesides);
-
         }
 
 

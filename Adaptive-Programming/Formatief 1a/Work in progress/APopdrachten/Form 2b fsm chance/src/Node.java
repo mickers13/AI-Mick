@@ -23,13 +23,12 @@ public class Node extends NodeAbstract {
         for(Integer i : connecties.keySet()){
             if(r > connecties.get(i).beginPercent && r < connecties.get(i).endPercent){
                 //dice kant gevonden. Ik had ook naar deze dice kunnen gaan zoals ik ook in formatief 2a heb gedaan, maar voor de opdracht is dit goed genoeg.
-                System.out.println("We rolled a dice, and got: "+ connecties.get(i).getId());
+                System.out.println("We rolled a dice, and got: "+ (connecties.get(i).getId()+1));
 
             }
         }
 
 
-        System.out.println("end of sequence reached.");
     }
     @Override
     public void addConnectie(Node node,Integer id) {
