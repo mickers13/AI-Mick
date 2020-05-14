@@ -6,7 +6,7 @@ public class ChanceNode extends NodeAbstract {
 
     String code;
     boolean isendnode;
-    private HashMap<String,NodeAbstract> connecties = new HashMap<>();
+    public HashMap<String,NodeAbstract> connecties = new HashMap<>();
     private Random rand = new Random();
 
     String newCode;
@@ -14,11 +14,7 @@ public class ChanceNode extends NodeAbstract {
     public ChanceNode() {
         // dit zijn nodes die hetzelfde werken als de AB nodes, maar maar met een 70% kans van toepassen van de letter ipv een andere.
         this.isendnode = isendnode;
-
-
     }
-
-
     public void useNode(String abcode) {
         int r = rand.nextInt(101);
         code = abcode;
@@ -28,16 +24,16 @@ public class ChanceNode extends NodeAbstract {
         System.out.println("Letter die we nodig hebben: "+ letter);
 
         if (letter.equals("a")) {
-            if (connecties.containsKey("a")&&connecties.containsKey("b")) {
+            if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
                     if(r < 70){
                     System.out.println("a gevonden"+this+"we geven de resterende code door naar de volgende node.");
                     hoeveelheidVerplaatst++;
                     connecties.get(letter).useNode(newCode);
 
                     } else {
-                        System.out.println("Andere keuze gemaakt dan aanbevolen, keuze B.");
+                        System.out.println("Andere keuze gemaakt dan aanbevolen, keuze c.");
                         hoeveelheidVerplaatst++;
-                        connecties.get("b").useNode(newCode);
+                        connecties.get("c").useNode(newCode);
 
             }} else {
                 if (connecties.containsKey("a")) {
@@ -53,7 +49,7 @@ public class ChanceNode extends NodeAbstract {
 
         }
         if (letter.equals("b")) {
-            if (connecties.containsKey("a")&&connecties.containsKey("b")) {
+            if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
                 if(r < 70){
                     System.out.println("b gevonden"+this+"we geven de resterende code door naar de volgende node.");
                     hoeveelheidVerplaatst++;
