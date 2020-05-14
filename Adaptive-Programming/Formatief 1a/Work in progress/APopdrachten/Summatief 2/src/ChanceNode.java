@@ -22,7 +22,7 @@ public class ChanceNode extends NodeAbstract {
     public void useNode(String abcode) {
         int r = rand.nextInt(101);
         code = abcode;
-
+        System.out.println("Cijfer is : "+ r);
         String letter = code.substring(0, 1);
         newCode = code.substring(1);
         System.out.println("Letter die we nodig hebben: "+ letter);
