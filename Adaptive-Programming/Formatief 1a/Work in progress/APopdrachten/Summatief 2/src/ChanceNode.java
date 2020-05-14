@@ -14,7 +14,7 @@ public class ChanceNode extends NodeAbstract {
     public ChanceNode() {
         // dit zijn nodes die hetzelfde werken als de AB nodes, maar maar met een 70% kans van toepassen van de letter ipv een andere.
         this.isendnode = isendnode;
-    }
+    }   // deze code lijkt erg veel op de code van text node, maar ik weet niet hoe ik dit aan zou moeten passen, dat ik alleen kleine stukjes toevoeg. Tips zijn welkom
     public void useNode(String abcode) {
         int r = rand.nextInt(101);
         code = abcode;
@@ -72,6 +72,29 @@ public class ChanceNode extends NodeAbstract {
                 }
             }
 
+        }else{
+            if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
+                if(r < 70){
+                    System.out.println("c gevonden"+this+"we geven de resterende code door naar de volgende node.");
+                    hoeveelheidVerplaatst++;
+                    connecties.get(letter).useNode(newCode);
+
+                } else {
+                    System.out.println("Andere keuze gemaakt dan aanbevolen, keuze b.");
+                    hoeveelheidVerplaatst++;
+                    connecties.get("b").useNode(newCode);
+
+                }} else {
+                if (connecties.containsKey("c")) {
+                    System.out.println("c gevonden in "+this+" we geven de resterende code door naar de volgende node.");
+                    hoeveelheidVerplaatst++;
+                    connecties.get(letter).useNode(newCode);
+                } else {
+                    System.out.println("geen connecties gevoden. Einde programma");
+                    System.out.println("Er zijn zoveel nodes gepasseerd: "+ (hoeveelheidVerplaatst+1));
+                    System.exit(0);
+                }
+            }
         }
         System.out.println("end of sequince reached.");
         System.exit(0);

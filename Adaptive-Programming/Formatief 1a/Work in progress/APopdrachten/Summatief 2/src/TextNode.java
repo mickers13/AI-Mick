@@ -37,7 +37,18 @@ public class TextNode extends NodeAbstract {
                 System.exit(0);
             }
         }
-        System.out.println("end of sequince reached.");
+        if (letter.equals("c")) {
+            if (connecties.containsKey("c")) {
+                System.out.println("c gevonden in "+this+" we geven de resterende code door naar de volgende node.");
+                hoeveelheidVerplaatst++;
+                connecties.get(letter).useNode(newCode);
+            } else {
+                System.out.println("geen c gevonden, einde programma.");
+                System.out.println("Er zijn zoveel nodes gepasseerd: "+ (hoeveelheidVerplaatst+1));
+                System.exit(0);
+            }
+        }
+        System.out.println("end of sequence reached.");
         System.exit(0);
     }
 
