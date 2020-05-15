@@ -7,6 +7,14 @@ public class Main {
         ChanceNode chancenode1 = new ChanceNode();
         ChanceNode chancenode2 = new ChanceNode();
         NodeAbstract.addLetters("abc");
+        int threshold1 = 40;
+        if (chancenode1.correctThreshold(threshold1)== true) {
+            chancenode1.setTriggerThreshold(threshold1);
+        }
+        int threshold2 = 70;
+        if (chancenode1.correctThreshold(threshold2)== true) {
+            chancenode1.setTriggerThreshold(threshold2);
+        }
         // maak alle connecties tussen de nodes.
         String a = "a";
         String b = "b";

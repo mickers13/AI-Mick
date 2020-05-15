@@ -8,7 +8,19 @@ public class ChanceNode extends NodeAbstract {
     boolean isendnode;
     public HashMap<String,NodeAbstract> connecties = new HashMap<>();
     private Random rand = new Random();
+    public boolean correctThreshold(int i){
+        boolean correctNumber = false;
+        if(i<100&&i>0){
+            correctNumber = true;
+        }
+        return correctNumber;
+    }
+    public int setTriggerThreshold(int triggerThreshold) {
+        this.triggerThreshold = triggerThreshold;
+        return triggerThreshold;
+    }
 
+    private int triggerThreshold = 70;
     String newCode;
 
     public ChanceNode() {
@@ -21,11 +33,13 @@ public class ChanceNode extends NodeAbstract {
         System.out.println("Cijfer is : "+ r);
         String letter = code.substring(0, 1);
         newCode = code.substring(1);
+
+
         System.out.println("Letter die we nodig hebben: "+ letter);
 
         if (letter.equals("a")) {
             if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
-                    if(r < 70){
+                    if(r < triggerThreshold){
                     System.out.println("a gevonden"+this+"we geven de resterende code door naar de volgende node.");
                     hoeveelheidVerplaatst++;
                     connecties.get(letter).useNode(newCode);
@@ -50,7 +64,7 @@ public class ChanceNode extends NodeAbstract {
         }
         if (letter.equals("b")) {
             if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
-                if(r < 70){
+                if(r < triggerThreshold){
                     System.out.println("b gevonden"+this+"we geven de resterende code door naar de volgende node.");
                     hoeveelheidVerplaatst++;
                     connecties.get(letter).useNode(newCode);
@@ -74,7 +88,7 @@ public class ChanceNode extends NodeAbstract {
 
         }else{
             if (connecties.containsKey("a")&&connecties.containsKey("b")&&connecties.containsKey("c")) {
-                if(r < 70){
+                if(r < triggerThreshold){
                     System.out.println("c gevonden"+this+"we geven de resterende code door naar de volgende node.");
                     hoeveelheidVerplaatst++;
                     connecties.get(letter).useNode(newCode);
