@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 
 public class TextNode extends NodeAbstract {
@@ -5,6 +7,7 @@ public class TextNode extends NodeAbstract {
     static String code;
     String letter;
     String newCode;
+    String possibleLetters;
     @Override
     public void useNode(String abcode) {
         code = abcode;
@@ -60,5 +63,16 @@ public class TextNode extends NodeAbstract {
         connecties.put(letter, chanceNode);
     }
 
+
+    // ik heb deze functie gemaakt zodat het daadwerkelijk nut heeft om
+
+    public String codeValidator(String abcode){
+        for(int i = 0; i<abcode.length(); i++)
+            //als er een letter in zit die er niet in zou moeten zitten,delete deze.
+            if (!letters.contains(""+abcode.charAt(i))){
+            abcode = new StringBuilder(abcode).deleteCharAt(i).toString();
+            }
+        return abcode;
+    }
 
 }

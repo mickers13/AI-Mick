@@ -4,9 +4,15 @@ abstract class NodeAbstract {
     private String nodeNaam;
     static int hoeveelheidVerplaatst;
     static int counter;
+    static String letters = "";
     public boolean isendnode;
     static ArrayList<String> nodesList = new ArrayList<String>();
-    static String letters;
+
+    public static void addLetters(String letter) {
+        letters.concat(letter);
+    }
+
+
     public NodeAbstract() {
         counter++;
         nodeNaam = this.getClass().toString();
