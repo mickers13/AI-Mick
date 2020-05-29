@@ -28,8 +28,12 @@ public class Rit extends Stap{
         }
     }
     public double calculateRatio(int distance){
-        // My base units are KM , so for this class this can be very easy, zolang je maar een auto hebt!
-        return (distance);//return kilometers.
+        // My base units are KM, dan kijk ik naar prijs per km voor een auto die 1/19 rijd, en weet ik de prijs.
+        if (distance == 0){
+            // even een division by zero voorkomen, sowieso als je geen afstand hoeft af te leggen, dan kan je beter niet in de trein stappen.
+            return distance;
+        }
+        return ((distance/19)*0.43);//return how many hours you have traveled.
     }
 
 

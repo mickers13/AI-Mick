@@ -36,7 +36,7 @@ public class Vlucht extends Stap{
         // I take distance as distance in kilometers what I multiply by 0.20 what is the cost per kilometer for KLM according to following source:
         // https://www.luchtvaartnieuws.nl/nieuws/categorie/2/airlines/klm-per-kilometer-twee-keer-zo-duur-als-emirates
         // because of this, if a neighbour or endnode has an airport, flying will almost always be cheap.
-        return (distance);
+        return ((distance*0.20)+5);
     }
 
 

@@ -33,11 +33,12 @@ public class Treinrit extends Stap{
         // I take distance as distance in kilometers what I divide by 100 what is the cost per kilometer for trains according to following source:
         // https://gemiddeldgezien.nl/gemiddelde-snelheid-trein
         // because of this, if a neighbour has a train station, it might be a very short drive by train.
+        // I also add 5 as a "instap tarief." want instappen kost ook wat tijd met de trein.
         if (distance == 0){
             // even een division by zero voorkomen, sowieso als je geen afstand hoeft af te leggen, dan kan je beter niet in de trein stappen.
             return distance;
         }
-        return (distance);//return how many hours you have traveled.
+        return (distance/100+20);//return how many hours you have traveled.
     }
 
 

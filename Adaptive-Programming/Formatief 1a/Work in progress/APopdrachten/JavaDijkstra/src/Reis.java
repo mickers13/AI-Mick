@@ -13,6 +13,7 @@ public class Reis {
         this.eind = eind;
         Stap temp = begin;
 //        NodeCompareQueue.add(begin);
+        // initialisatie van dijkstra
         ArrayList<Stap> allNodes = begin.getNodesListCopy();
         Set<Stap> duplicatecheck = new HashSet<>();
         ArrayList<Stap> settled = new ArrayList<>();
@@ -22,7 +23,7 @@ public class Reis {
         Stap currentevaluation;
         begin.setLastnode(begin);// voor het algoritme telt hij de vorige distances op met de nieuwe, om te kijken of het kleiner is dan iets anders. Dit is om een null pointer te voorkomen bij de eerste. ( want er is geen vorige )
         Stap last;
-        //evaluate unsettled en voeg nieuwe dingen toe, totdat er niets meer unsettled is. ( en verplaats dingen van unsettled naar settled als ze dus, helemaal gechecked zijn.) en begin bij de laagste.
+        /// ----- daad werkelijk dijkstra algoritme
         while (unsettled.size() > 0) {
 
             currentevaluation = unsettled.poll();// nog niet poll, want dat kan de lijst naar 0 brengen, wat de while loop sluit.
@@ -45,13 +46,17 @@ public class Reis {
             settled.add(currentevaluation);
         }
         System.out.println(settled);
+        // Vanaf het einde terug tracen, zodat ik de route makkelijk kan bekijken. Ik had dit ook tijdens de while loop kunnen doen, maar ik vond dit onoverzichtelijk en deze aanpak is denk ik ook nét wat efficienter ( aan het einde een keer de goedkoopste route bekijken, ipv elke keer checken of je het moet toevoegen ja of nee.)
         Stap huidige = eind;
-        System.out.println(huidige);
+        ArrayList<Stap> goedkoopsteroute = new ArrayList<>();
+        goedkoopsteroute.add(huidige);
         while (huidige != begin){
-            System.out.println(huidige.getLastnode());
-            huidige = huidige.getLastnode();
+            goedkoopsteroute.add(huidige.getLastnode());
         }
-        System.out.println(eind.getTempShortestDistance());
+        for(String index: goedkoopsteroute){
+
+        }
+        );
     }
 }
 

@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+// Small disclaimer voor de docent:   Ik heb erg mijn best gedaan verschillende currency's met elkaar te vergelijken, maar behalve een onduidelijke berekening te laten zien vind ik dit niet erg duidlijk. Ik zal de
 public class Main {
     //nederland is vrij bereikbaar door heel europa heen, en mijn meeste destinations zullen in europa zijn.
     static Vlucht schipholAirport = new Vlucht();
@@ -23,7 +26,7 @@ public class Main {
     static Rit londenParking = new Rit();
     static Vlucht londenAirport = new Vlucht();
 
-    //belgie is vrij bereikbaar, maar helaas niet met de auto, want de belgen hadden de weg afgesneden. Ook is de airport dicht ivm corona
+    //belgie is vrij bereikbaar, maar helaas niet met de auto ( de boot van engeland telt niet ;) ), want de belgen hadden de weg afgesneden. Ook is de airport dicht ivm corona
     static Treinrit brusselTreinstation = new Treinrit();
     static Rit brusselParking = new Rit();
 
